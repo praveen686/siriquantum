@@ -15,7 +15,8 @@ namespace Exchange {
     REJECTED = 2,
     CANCELED = 3,
     FILLED = 4,
-    CANCEL_REJECTED = 5
+    CANCEL_REJECTED = 5,
+    PARTIALLY_FILLED = 6
   };
 
   inline std::string clientResponseTypeToString(ClientResponseType type) {
@@ -28,6 +29,8 @@ namespace Exchange {
         return "CANCELED";
       case ClientResponseType::FILLED:
         return "FILLED";
+      case ClientResponseType::PARTIALLY_FILLED:
+        return "PARTIALLY_FILLED";
       case ClientResponseType::CANCEL_REJECTED:
         return "CANCEL_REJECTED";
       case ClientResponseType::INVALID:

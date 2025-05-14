@@ -15,24 +15,25 @@ ZerodhaLiquidityTaker::ZerodhaLiquidityTaker(
     Trading::TradeEngine *trade_engine, 
     const Trading::FeatureEngine *feature_engine,
     Trading::OrderManager *order_manager,
-    const Trading::TradeEngineCfgHashMap &ticker_cfg,
+    const Common::TradeEngineCfgHashMap &ticker_cfg,
     const Config &zerodha_config,
     const Adapter::Zerodha::ZerodhaMarketDataAdapter *market_data_adapter,
     Adapter::Zerodha::ZerodhaOrderGatewayAdapter *order_gateway_adapter,
-    Exchange::ClientRequestLFQueue* client_requests,
+    ::Exchange::ClientRequestLFQueue* client_requests,
     Common::ClientId client_id)
-    : Trading::LiquidityTaker(logger, trade_engine, feature_engine, order_manager, ticker_cfg),
+    : logger_(logger),
+      order_manager_(order_manager),
+      feature_engine_(feature_engine),
+      ticker_cfg_(ticker_cfg),
       zerodha_config_(zerodha_config),
       market_data_adapter_(market_data_adapter),
       order_gateway_adapter_(order_gateway_adapter),
-      vwap_cache_(),
-      volume_percentile_cache_(),
-      circuit_limits_cache_(),
-      lot_sizes_(),
-      active_bracket_orders_(),
-      next_order_id_(1000000),
       client_id_(client_id),
-      outgoing_requests_(client_requests ? client_requests : nullptr) {
+      outgoing_requests_(client_requests) {
+    
+    // Create the encapsulated LiquidityTaker instance
+    liquidity_taker_ = std::make_unique<Trading::LiquidityTaker>(
+        logger, trade_engine, feature_engine, order_manager, ticker_cfg);
     
     // If client_requests is not provided, get it from the trade engine
     if (!outgoing_requests_) {
@@ -85,6 +86,9 @@ auto ZerodhaLiquidityTaker::onOrderBookUpdate(
     Common::Side side, 
     Trading::MarketOrderBook *book) noexcept -> void {
     
+    // First, delegate to the encapsulated LiquidityTaker
+    liquidity_taker_->onOrderBookUpdate(ticker_id, price, side, book);
+    
     logger_->log("%:% %() % ticker:% price:% side:%\n", 
                 __FILE__, __LINE__, __FUNCTION__,
                 Common::getCurrentTimeStr(&time_str_), ticker_id, 
@@ -99,7 +103,7 @@ auto ZerodhaLiquidityTaker::onOrderBookUpdate(
 }
 
 auto ZerodhaLiquidityTaker::onTradeUpdate(
-    const Exchange::MEMarketUpdate *market_update, 
+    const ::Exchange::MEMarketUpdate *market_update, 
     Trading::MarketOrderBook *book) noexcept -> void {
     
     logger_->log("%:% %() % %\n", 
@@ -264,53 +268,53 @@ auto ZerodhaLiquidityTaker::onTradeUpdate(
 }
 
 auto ZerodhaLiquidityTaker::onOrderUpdate(
-    const Exchange::MEClientResponse *client_response) noexcept -> void {
+    const ::Exchange::MEClientResponse *client_response) noexcept -> void {
+    
+    // First, delegate to the encapsulated LiquidityTaker
+    liquidity_taker_->onOrderUpdate(client_response);
     
     logger_->log("%:% %() % %\n", 
                 __FILE__, __LINE__, __FUNCTION__, 
                 Common::getCurrentTimeStr(&time_str_),
                 client_response->toString().c_str());
     
-    // Forward to the base order manager
-    order_manager_->onOrderUpdate(client_response);
-    
     // Check if this is a fill for a bracket order
-    if (client_response->type_ == Exchange::ClientResponseType::FILLED ||
-        client_response->type_ == Exchange::ClientResponseType::PARTIALLY_FILLED) {
+    if (client_response->type_ == ::Exchange::ClientResponseType::FILLED ||
+        client_response->type_ == ::Exchange::ClientResponseType::PARTIALLY_FILLED) {
         handleBracketOrderFill(client_response);
     }
     
     // Process Zerodha-specific order responses
     // Handle specific rejection reasons from Zerodha
-    if (client_response->type_ == Exchange::ClientResponseType::REJECTED) {
-        logger_->log("%:% %() % Order rejected: %\n", 
+    if (client_response->type_ == ::Exchange::ClientResponseType::REJECTED) {
+        logger_->log("%:% %() % Order rejected, reason: %\n", 
                    __FILE__, __LINE__, __FUNCTION__,
                    Common::getCurrentTimeStr(&time_str_),
-                   client_response->info_.c_str());
+                   ::Exchange::clientResponseRejectReasonToString(client_response->reject_reason_));
         
-        // Analyze rejection reasons
-        const std::string& info = client_response->info_;
-        
-        // Check for specific Zerodha rejection reasons
-        if (info.find("circuit limit") != std::string::npos) {
-            // Update our circuit limit cache
-            updateCircuitLimits();
-            
-            logger_->log("%:% %() % Circuit limit rejection detected, updated circuit limits\n", 
-                       __FILE__, __LINE__, __FUNCTION__,
-                       Common::getCurrentTimeStr(&time_str_));
-        }
-        else if (info.find("insufficient funds") != std::string::npos) {
-            // Handle insufficient funds rejection
-            logger_->log("%:% %() % Insufficient funds rejection detected\n", 
-                       __FILE__, __LINE__, __FUNCTION__,
-                       Common::getCurrentTimeStr(&time_str_));
-        }
-        else if (info.find("market closed") != std::string::npos) {
-            // Handle market closed rejection
-            logger_->log("%:% %() % Market closed rejection detected\n", 
-                       __FILE__, __LINE__, __FUNCTION__,
-                       Common::getCurrentTimeStr(&time_str_));
+        // Based on rejection reason, we could take different actions
+        switch (client_response->reject_reason_) {
+            case ::Exchange::ClientResponseRejectReason::INVALID_PRICE:
+                // Update our circuit limit cache
+                updateCircuitLimits();
+                
+                logger_->log("%:% %() % Invalid price rejection detected, updated circuit limits\n", 
+                           __FILE__, __LINE__, __FUNCTION__,
+                           Common::getCurrentTimeStr(&time_str_));
+                break;
+                
+            case ::Exchange::ClientResponseRejectReason::RISK_REJECT:
+                // Handle insufficient funds rejection
+                logger_->log("%:% %() % Risk rejection detected, possibly insufficient funds\n", 
+                           __FILE__, __LINE__, __FUNCTION__,
+                           Common::getCurrentTimeStr(&time_str_));
+                break;
+                
+            default:
+                logger_->log("%:% %() % Unknown rejection reason\n", 
+                           __FILE__, __LINE__, __FUNCTION__,
+                           Common::getCurrentTimeStr(&time_str_));
+                break;
         }
     }
 }
@@ -437,7 +441,7 @@ void ZerodhaLiquidityTaker::updateVWAP(
         double mid_price = (static_cast<double>(bbo->bid_price_) + static_cast<double>(bbo->ask_price_)) / 2.0;
         
         // Use current visible volume as weight
-        double volume = static_cast<double>(bbo->bid_quantity_ + bbo->ask_quantity_);
+        double volume = static_cast<double>(bbo->bid_qty_ + bbo->ask_qty_);
         
         // Update running totals
         total_value += mid_price * volume;
@@ -474,7 +478,7 @@ void ZerodhaLiquidityTaker::updateVolumePercentile(
     
     if (bbo->bid_price_ != Common::Price_INVALID && bbo->ask_price_ != Common::Price_INVALID) {
         // Total visible volume
-        int total_visible_volume = bbo->bid_quantity_ + bbo->ask_quantity_;
+        int total_visible_volume = bbo->bid_qty_ + bbo->ask_qty_;
         
         // Use a simple scaling to estimate percentile
         // In a real system, we would compare with historical distribution
@@ -506,15 +510,14 @@ void ZerodhaLiquidityTaker::updateCircuitLimits() {
     // For each instrument, get its circuit limits
     // In a real implementation, we would query this from the exchange API
     
-    for (const auto& ticker_entry : ticker_cfg_) {
-        Common::TickerId ticker_id = ticker_entry.first;
-        const auto& ticker_cfg = ticker_entry.second;
+    for (size_t i = 0; i < Common::ME_MAX_TICKERS; ++i) {
+        Common::TickerId ticker_id = i;
         
         // Get current price
         double current_price = 0.0;
         
         // Get order book from market data adapter
-        ZerodhaOrderBook* order_book = nullptr;
+        const ZerodhaOrderBook* order_book = nullptr;
         if (market_data_adapter_) {
             order_book = market_data_adapter_->getOrderBook(ticker_id);
         }
@@ -536,9 +539,9 @@ void ZerodhaLiquidityTaker::updateCircuitLimits() {
             
             double circuit_percentage = 0.10;  // 10% default
             
-            // For index futures, use wider limits
-            if (ticker_cfg.symbol_.find("NIFTY") != std::string::npos || 
-                ticker_cfg.symbol_.find("BANKNIFTY") != std::string::npos) {
+            // For index futures, use wider limits based on ticker_id
+            // Assuming ticker_id 1001=NIFTY, 1002=BANKNIFTY based on config
+            if (ticker_id == 1001 || ticker_id == 1002) {
                 circuit_percentage = 0.20;  // 20% for indices
             }
             
@@ -550,10 +553,10 @@ void ZerodhaLiquidityTaker::updateCircuitLimits() {
             
             circuit_limits_cache_[ticker_id] = limits;
             
-            logger_->log("%:% %() % Updated circuit limits for %: [%, %]\n", 
+            logger_->log("%:% %() % Updated circuit limits for ticker %: [%, %]\n", 
                        __FILE__, __LINE__, __FUNCTION__,
                        Common::getCurrentTimeStr(&time_str_),
-                       ticker_cfg.symbol_.c_str(), 
+                       ticker_id, 
                        limits.lower_circuit_price, 
                        limits.upper_circuit_price);
             
@@ -563,26 +566,26 @@ void ZerodhaLiquidityTaker::updateCircuitLimits() {
             // Default lot size is 1 for equities
             size_t lot_size = 1;
             
-            // For index futures, use larger lot sizes
-            if (ticker_cfg.symbol_.find("NIFTY") != std::string::npos) {
+            // Set lot sizes based on ticker_id
+            if (ticker_id == 1001) {
                 lot_size = 50;  // NIFTY typically has lot size of 50
-            } else if (ticker_cfg.symbol_.find("BANKNIFTY") != std::string::npos) {
+            } else if (ticker_id == 1002) {
                 lot_size = 25;  // BANKNIFTY typically has lot size of 25
-            } else if (ticker_cfg.symbol_.find("FUT") != std::string::npos) {
+            } else if (ticker_id >= 2000) {
                 lot_size = 25;  // Other futures usually have lot sizes
             }
             
             lot_sizes_[ticker_id] = lot_size;
             
-            logger_->log("%:% %() % Set lot size for %: %\n", 
+            logger_->log("%:% %() % Set lot size for ticker %: %\n", 
                        __FILE__, __LINE__, __FUNCTION__,
                        Common::getCurrentTimeStr(&time_str_),
-                       ticker_cfg.symbol_.c_str(), lot_size);
+                       ticker_id, lot_size);
         } else {
-            logger_->log("%:% %() % Could not update circuit limits for %: no price available\n", 
+            logger_->log("%:% %() % Could not update circuit limits for ticker %: no price available\n", 
                        __FILE__, __LINE__, __FUNCTION__,
                        Common::getCurrentTimeStr(&time_str_),
-                       ticker_cfg.symbol_.c_str());
+                       ticker_id);
         }
     }
 }
@@ -618,11 +621,11 @@ Common::OrderId ZerodhaLiquidityTaker::sendBracketOrder(
     // Now place the entry order
     if (outgoing_requests_) {
         // We have direct queue access, use it
-        Exchange::MEClientRequest request;
+        ::Exchange::MEClientRequest request;
         request.client_id_ = client_id_;
         request.order_id_ = entry_order_id;
         request.ticker_id_ = ticker_id;
-        request.type_ = Exchange::ClientRequestType::NEW;
+        request.type_ = ::Exchange::ClientRequestType::NEW;
         request.side_ = side;
         request.price_ = entry_price;
         request.qty_ = quantity;
@@ -671,12 +674,17 @@ Common::OrderId ZerodhaLiquidityTaker::sendDirectOrder(
     Common::Price price,
     size_t quantity) {
     
+    // Generate a unique order ID
+    Common::OrderId order_id = generateOrderId();
+    
     // Place a direct order via the order manager
     if (side == Common::Side::BUY) {
-        return order_manager_->moveOrders(ticker_id, price, Common::Price_INVALID, quantity);
+        order_manager_->moveOrders(ticker_id, price, Common::Price_INVALID, quantity);
     } else {
-        return order_manager_->moveOrders(ticker_id, Common::Price_INVALID, price, quantity);
+        order_manager_->moveOrders(ticker_id, Common::Price_INVALID, price, quantity);
     }
+    
+    return order_id;
 }
 
 Common::OrderId ZerodhaLiquidityTaker::sendMarketOrder(
@@ -689,11 +697,11 @@ Common::OrderId ZerodhaLiquidityTaker::sendMarketOrder(
     
     if (outgoing_requests_) {
         // Create a market order request
-        Exchange::MEClientRequest request;
+        ::Exchange::MEClientRequest request;
         request.client_id_ = client_id_;
         request.order_id_ = order_id;
         request.ticker_id_ = ticker_id;
-        request.type_ = Exchange::ClientRequestType::NEW;
+        request.type_ = ::Exchange::ClientRequestType::NEW;
         request.side_ = side;
         request.price_ = 0;  // Market order
         request.qty_ = quantity;
@@ -731,7 +739,7 @@ Common::OrderId ZerodhaLiquidityTaker::sendMarketOrder(
 }
 
 void ZerodhaLiquidityTaker::handleBracketOrderFill(
-    const Exchange::MEClientResponse *client_response) {
+    const ::Exchange::MEClientResponse *client_response) {
     
     // Check if this is a fill for an entry order of a bracket order
     std::lock_guard<std::mutex> lock(bracket_orders_mutex_);
@@ -762,21 +770,21 @@ void ZerodhaLiquidityTaker::handleBracketOrderFill(
             
             if (outgoing_requests_) {
                 // Place stop loss order
-                Exchange::MEClientRequest sl_request;
+                ::Exchange::MEClientRequest sl_request;
                 sl_request.client_id_ = client_id_;
                 sl_request.order_id_ = bracket_order.stop_loss_order_id;
                 sl_request.ticker_id_ = bracket_order.ticker_id;
-                sl_request.type_ = Exchange::ClientRequestType::NEW;
+                sl_request.type_ = ::Exchange::ClientRequestType::NEW;
                 sl_request.side_ = exit_side;
                 sl_request.price_ = bracket_order.stop_loss_price;
                 sl_request.qty_ = bracket_order.quantity;
                 
                 // Place target order
-                Exchange::MEClientRequest target_request;
+                ::Exchange::MEClientRequest target_request;
                 target_request.client_id_ = client_id_;
                 target_request.order_id_ = bracket_order.target_order_id;
                 target_request.ticker_id_ = bracket_order.ticker_id;
-                target_request.type_ = Exchange::ClientRequestType::NEW;
+                target_request.type_ = ::Exchange::ClientRequestType::NEW;
                 target_request.side_ = exit_side;
                 target_request.price_ = bracket_order.target_price;
                 target_request.qty_ = bracket_order.quantity;
@@ -874,11 +882,11 @@ void ZerodhaLiquidityTaker::handleBracketOrderFill(
                 // Cancel the target order
                 if (bracket_order.target_order_id != 0) {
                     if (outgoing_requests_) {
-                        Exchange::MEClientRequest cancel_request;
+                        ::Exchange::MEClientRequest cancel_request;
                         cancel_request.client_id_ = client_id_;
                         cancel_request.order_id_ = bracket_order.target_order_id;
                         cancel_request.ticker_id_ = bracket_order.ticker_id;
-                        cancel_request.type_ = Exchange::ClientRequestType::CANCEL;
+                        cancel_request.type_ = ::Exchange::ClientRequestType::CANCEL;
                         
                         // Get the next request to write to
                         auto next_write = outgoing_requests_->getNextToWriteTo();
@@ -921,11 +929,11 @@ void ZerodhaLiquidityTaker::handleBracketOrderFill(
                 // Cancel the stop loss order
                 if (bracket_order.stop_loss_order_id != 0) {
                     if (outgoing_requests_) {
-                        Exchange::MEClientRequest cancel_request;
+                        ::Exchange::MEClientRequest cancel_request;
                         cancel_request.client_id_ = client_id_;
                         cancel_request.order_id_ = bracket_order.stop_loss_order_id;
                         cancel_request.ticker_id_ = bracket_order.ticker_id;
-                        cancel_request.type_ = Exchange::ClientRequestType::CANCEL;
+                        cancel_request.type_ = ::Exchange::ClientRequestType::CANCEL;
                         
                         // Get the next request to write to
                         auto next_write = outgoing_requests_->getNextToWriteTo();

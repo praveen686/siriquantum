@@ -32,8 +32,8 @@ class ZerodhaOrderGatewayAdapter {
 public:
     ZerodhaOrderGatewayAdapter(Common::Logger* logger,
                               Common::ClientId client_id,
-                              Exchange::ClientRequestLFQueue* client_requests,
-                              Exchange::ClientResponseLFQueue* client_responses,
+                              ::Exchange::ClientRequestLFQueue* client_requests,
+                              ::Exchange::ClientResponseLFQueue* client_responses,
                               const std::string& api_key,
                               const std::string& api_secret);
 
@@ -87,8 +87,8 @@ private:
     std::string time_str_;
     
     // Queues for order requests and responses
-    Exchange::ClientRequestLFQueue* outgoing_requests_ = nullptr;
-    Exchange::ClientResponseLFQueue* incoming_responses_ = nullptr;
+    ::Exchange::ClientRequestLFQueue* outgoing_requests_ = nullptr;
+    ::Exchange::ClientResponseLFQueue* incoming_responses_ = nullptr;
     
     // Map of internal ticker IDs to Zerodha symbols
     std::map<Common::TickerId, std::string> ticker_to_symbol_map_;
@@ -100,7 +100,7 @@ private:
     std::mutex orders_mutex_;
     
     // Last known status for each order (for detecting changes)
-    std::map<Common::OrderId, std::pair<Exchange::ClientResponseType, Common::Qty>> last_order_status_;
+    std::map<Common::OrderId, std::pair<::Exchange::ClientResponseType, Common::Qty>> last_order_status_;
     std::mutex last_order_status_mutex_;
     
     // Threads
@@ -116,7 +116,7 @@ private:
     
     // Paper trading data structures
     struct PaperTradingOrder {
-        Exchange::MEClientRequest internal_order;
+        ::Exchange::MEClientRequest internal_order;
         std::string zerodha_symbol;
         std::string zerodha_order_id;
         uint64_t execution_time;       // When the order will execute
@@ -137,20 +137,20 @@ private:
     auto runOrderGateway() -> void;
     
     // Process outgoing order requests
-    auto processOrderRequest(const Exchange::MEClientRequest& request) -> void;
+    auto processOrderRequest(const ::Exchange::MEClientRequest& request) -> void;
     
     // Convert internal order request to Zerodha format and send
-    auto sendNewOrder(const Exchange::MEClientRequest& request) -> void;
-    auto sendCancelOrder(const Exchange::MEClientRequest& request) -> void;
+    auto sendNewOrder(const ::Exchange::MEClientRequest& request) -> void;
+    auto sendCancelOrder(const ::Exchange::MEClientRequest& request) -> void;
     
     // Handle paper trading orders
-    auto handlePaperTradeNewOrder(const Exchange::MEClientRequest& request, const std::string& zerodha_symbol) -> void;
-    auto handlePaperTradeCancelOrder(const Exchange::MEClientRequest& request, const std::string& zerodha_order_id) -> void;
+    auto handlePaperTradeNewOrder(const ::Exchange::MEClientRequest& request, const std::string& zerodha_symbol) -> void;
+    auto handlePaperTradeCancelOrder(const ::Exchange::MEClientRequest& request, const std::string& zerodha_order_id) -> void;
     auto processPaperOrders() -> void;
     
     // Handle live trading orders
-    auto handleLiveTradeNewOrder(const Exchange::MEClientRequest& request, const std::string& zerodha_symbol) -> void;
-    auto handleLiveTradeCancelOrder(const Exchange::MEClientRequest& request, const std::string& zerodha_order_id) -> void;
+    auto handleLiveTradeNewOrder(const ::Exchange::MEClientRequest& request, const std::string& zerodha_symbol) -> void;
+    auto handleLiveTradeCancelOrder(const ::Exchange::MEClientRequest& request, const std::string& zerodha_order_id) -> void;
     auto pollOrderStatus() -> void;
     
     // Helper functions for paper trading
@@ -165,14 +165,14 @@ private:
                          std::string& response, bool is_delete = false) -> bool;
     
     // Status conversion
-    auto convertZerodhaStatusToInternal(const std::string& zerodha_status) -> Exchange::ClientResponseType;
-    auto shouldPropagateOrderUpdate(Common::OrderId order_id, Exchange::ClientResponseType new_status, Common::Qty new_filled_qty) -> bool;
-    auto updateLastKnownOrderStatus(Common::OrderId order_id, Exchange::ClientResponseType status, Common::Qty filled_qty) -> void;
+    auto convertZerodhaStatusToInternal(const std::string& zerodha_status) -> ::Exchange::ClientResponseType;
+    auto shouldPropagateOrderUpdate(Common::OrderId order_id, ::Exchange::ClientResponseType new_status, Common::Qty new_filled_qty) -> bool;
+    auto updateLastKnownOrderStatus(Common::OrderId order_id, ::Exchange::ClientResponseType status, Common::Qty filled_qty) -> void;
     
     // Convert responses
     auto convertResponseToInternal(const std::string& zerodha_resp, 
                                  const std::string& zerodha_order_id,
-                                 Common::OrderId internal_order_id) -> Exchange::MEClientResponse;
+                                 Common::OrderId internal_order_id) -> ::Exchange::MEClientResponse;
 };
 
 } // namespace Zerodha

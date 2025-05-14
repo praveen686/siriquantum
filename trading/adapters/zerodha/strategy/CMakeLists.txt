@@ -1,7 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
-
-# Set the project name
-project(zerodha_strategy)
+# Zerodha strategy components
 
 # Include directories
 include_directories(
@@ -27,18 +24,21 @@ add_library(zerodha_strategy STATIC
     ${ZERODHA_STRATEGY_HEADERS}
 )
 
+# Find required dependencies
+find_package(Boost REQUIRED COMPONENTS system)
+find_package(OpenSSL REQUIRED)
+
 # Link dependencies
 target_link_libraries(zerodha_strategy
-    PUBLIC common
-    PUBLIC trading_strategy
     PUBLIC zerodha_market_data
     PUBLIC zerodha_order_gateway
+    PUBLIC libcommon
+    PUBLIC ${Boost_LIBRARIES}
+    PUBLIC ${OPENSSL_LIBRARIES}
 )
 
 # Add dependencies
 add_dependencies(zerodha_strategy
-    common
-    trading_strategy
     zerodha_market_data
     zerodha_order_gateway
 )

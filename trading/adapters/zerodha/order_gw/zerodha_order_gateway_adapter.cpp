@@ -10,8 +10,8 @@ namespace Zerodha {
 ZerodhaOrderGatewayAdapter::ZerodhaOrderGatewayAdapter(
     Common::Logger* logger,
     Common::ClientId client_id,
-    Exchange::ClientRequestLFQueue* client_requests,
-    Exchange::ClientResponseLFQueue* client_responses,
+    ::Exchange::ClientRequestLFQueue* client_requests,
+    ::Exchange::ClientResponseLFQueue* client_responses,
     const std::string& api_key,
     const std::string& api_secret) 
     : api_key_(api_key),

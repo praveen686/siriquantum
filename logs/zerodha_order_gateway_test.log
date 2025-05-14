@@ -1,45 +1,34 @@
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:118 main() Wed May 14 14:13:04 2025 Starting Zerodha Order Gateway Adapter Test...
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:131 main() Wed May 14 14:13:04 2025 Using config file: 
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:146 main() Wed May 14 14:13:04 2025 Running in PAPER trading mode
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:152 main() Wed May 14 14:13:04 2025 Using hardcoded configuration for test
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:194 main() Wed May 14 14:13:04 2025 Using sample credentials for testing
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:203 main() Wed May 14 14:13:04 2025 Using credentials for API access
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:208 main() Wed May 14 14:13:04 2025 Creating Zerodha order gateway adapter
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:25 ZerodhaOrderGatewayAdapter() Wed May 14 14:13:04 2025 Initialized ZerodhaOrderGatewayAdapter with client_id:1
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:272 logSettings() Wed May 14 14:13:04 2025 Current settings: paper_mode=enabled, fill_prob=0.9, latency=10-100 ms, slippage=0.0005
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:272 logSettings() Wed May 14 14:13:04 2025 Current settings: paper_mode=enabled, fill_prob=0.9, latency=10-100 ms, slippage=0.0005
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:272 logSettings() Wed May 14 14:13:04 2025 Current settings: paper_mode=enabled, fill_prob=0.9, latency=50-200 ms, slippage=0.0005
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:272 logSettings() Wed May 14 14:13:04 2025 Current settings: paper_mode=enabled, fill_prob=0.9, latency=50-200 ms, slippage=0.001
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:230 main() Wed May 14 14:13:04 2025 Configured paper trading parameters
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:82 registerInstrument() Wed May 14 14:13:04 2025 Registered instrument NSE:RELIANCEs (id: 1001) for client_id:1
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:246 main() Wed May 14 14:13:04 2025 Registered instrument: NSE:RELIANCE (ticker_id: 1001)
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:82 registerInstrument() Wed May 14 14:13:04 2025 Registered instrument NSE:INFYs (id: 1002) for client_id:1
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:246 main() Wed May 14 14:13:04 2025 Registered instrument: NSE:INFY (ticker_id: 1002)
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:82 registerInstrument() Wed May 14 14:13:04 2025 Registered instrument NSE:NIFTY50-FUTs (id: 1003) for client_id:1
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:246 main() Wed May 14 14:13:04 2025 Registered instrument: NSE:NIFTY50-FUT (ticker_id: 1003)
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:253 main() Wed May 14 14:13:04 2025 Starting order gateway adapter
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:47 start() Wed May 14 14:13:04 2025 Starting order gateway thread for client_id:1
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:128 runOrderGateway() Wed May 14 14:13:04 2025 Starting order gateway loop for client_id:1
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:323 main() Wed May 14 14:13:06 2025 Sending test orders for symbol NSE:RELIANCE (ticker_id: 1001)
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:268 operator()() Wed May 14 14:13:06 2025 Starting response monitoring thread
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:151 processOrderRequest() Wed May 14 14:13:06 2025 Processing order request: MEClientRequest [type:NEW client:1 ticker:1001 oid:1 side:BUY qty:10 price:0] for client_id:1
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:190 sendNewOrder() Wed May 14 14:13:06 2025 Sending new order for client_id:1 symbol:NSE:RELIANCE price:0 qty:10
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:293 operator()() Wed May 14 14:13:06 2025 Received order response: type=1, client_id=1, ticker=1001, order_id=1, side=1, price=0, exec_qty=0, leaves_qty=10
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:229 operator()() Wed May 14 14:13:06 2025 Simulated fill for client_id:1 order_id:1 symbol:NSE:RELIANCE price:0 qty:10
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:293 operator()() Wed May 14 14:13:06 2025 Received order response: type=4, client_id=1, ticker=1001, order_id=1, side=1, price=0, exec_qty=10, leaves_qty=0
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:151 processOrderRequest() Wed May 14 14:13:11 2025 Processing order request: MEClientRequest [type:NEW client:1 ticker:1001 oid:2 side:BUY qty:5 price:10000] for client_id:1
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:190 sendNewOrder() Wed May 14 14:13:11 2025 Sending new order for client_id:1 symbol:NSE:RELIANCE price:10000 qty:5
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:293 operator()() Wed May 14 14:13:11 2025 Received order response: type=1, client_id=1, ticker=1001, order_id=2, side=1, price=100, exec_qty=0, leaves_qty=5
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:229 operator()() Wed May 14 14:13:11 2025 Simulated fill for client_id:1 order_id:2 symbol:NSE:RELIANCE price:10000 qty:5
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:293 operator()() Wed May 14 14:13:11 2025 Received order response: type=4, client_id=1, ticker=1001, order_id=2, side=1, price=100, exec_qty=5, leaves_qty=0
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:151 processOrderRequest() Wed May 14 14:13:16 2025 Processing order request: MEClientRequest [type:CANCEL client:1 ticker:1001 oid:2 side:BUY qty:5 price:10000] for client_id:1
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:248 sendCancelOrder() Wed May 14 14:13:16 2025 Sending cancel for client_id:1 order_id:2 symbol:NSE:RELIANCE
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:293 operator()() Wed May 14 14:13:16 2025 Received order response: type=3, client_id=1, ticker=1001, order_id=2, side=1, price=100, exec_qty=0, leaves_qty=0
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:151 processOrderRequest() Wed May 14 14:13:21 2025 Processing order request: MEClientRequest [type:NEW client:1 ticker:1001 oid:3 side:SELL qty:3 price:10500] for client_id:1
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:190 sendNewOrder() Wed May 14 14:13:21 2025 Sending new order for client_id:1 symbol:NSE:RELIANCE price:10500 qty:3
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:293 operator()() Wed May 14 14:13:21 2025 Received order response: type=1, client_id=1, ticker=1001, order_id=3, side=-1, price=105, exec_qty=0, leaves_qty=3
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:229 operator()() Wed May 14 14:13:21 2025 Simulated fill for client_id:1 order_id:3 symbol:NSE:RELIANCE price:10500 qty:3
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:293 operator()() Wed May 14 14:13:21 2025 Received order response: type=4, client_id=1, ticker=1001, order_id=3, side=-1, price=105, exec_qty=3, leaves_qty=0
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:419 main() Wed May 14 14:13:26 2025 Stopping order gateway adapter
-/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:60 stop() Wed May 14 14:13:26 2025 Stopping order gateway for client_id:1
-/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:430 main() Wed May 14 14:13:27 2025 Test complete. Result: SUCCESS
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:118 main() Wed May 14 18:10:42 2025 Starting Zerodha Order Gateway Adapter Test...
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:131 main() Wed May 14 18:10:42 2025 Using config file: /home/praveen/om/siriquantum/ida/config/trading.json
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:146 main() Wed May 14 18:10:42 2025 Running in PAPER trading mode
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:152 main() Wed May 14 18:10:42 2025 Using hardcoded configuration for test
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:194 main() Wed May 14 18:10:42 2025 Using sample credentials for testing
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:203 main() Wed May 14 18:10:42 2025 Using credentials for API access
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:208 main() Wed May 14 18:10:42 2025 Creating Zerodha order gateway adapter
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:25 ZerodhaOrderGatewayAdapter() Wed May 14 18:10:42 2025 Initialized ZerodhaOrderGatewayAdapter with client_id:1
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:272 logSettings() Wed May 14 18:10:42 2025 Current settings: paper_mode=enabled, fill_prob=0.9, latency=10-100 ms, slippage=0.0005
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:272 logSettings() Wed May 14 18:10:42 2025 Current settings: paper_mode=enabled, fill_prob=0.9, latency=10-100 ms, slippage=0.0005
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:272 logSettings() Wed May 14 18:10:42 2025 Current settings: paper_mode=enabled, fill_prob=0.9, latency=50-200 ms, slippage=0.0005
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:272 logSettings() Wed May 14 18:10:42 2025 Current settings: paper_mode=enabled, fill_prob=0.9, latency=50-200 ms, slippage=0.001
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:230 main() Wed May 14 18:10:42 2025 Configured paper trading parameters
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:82 registerInstrument() Wed May 14 18:10:42 2025 Registered instrument NSE:RELIANCEs (id: 1001) for client_id:1
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:246 main() Wed May 14 18:10:42 2025 Registered instrument: NSE:RELIANCE (ticker_id: 1001)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:82 registerInstrument() Wed May 14 18:10:42 2025 Registered instrument NSE:INFYs (id: 1002) for client_id:1
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:246 main() Wed May 14 18:10:42 2025 Registered instrument: NSE:INFY (ticker_id: 1002)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:82 registerInstrument() Wed May 14 18:10:42 2025 Registered instrument NSE:NIFTY50-FUTs (id: 1003) for client_id:1
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:246 main() Wed May 14 18:10:42 2025 Registered instrument: NSE:NIFTY50-FUT (ticker_id: 1003)
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:253 main() Wed May 14 18:10:42 2025 Starting order gateway adapter
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:47 start() Wed May 14 18:10:42 2025 Starting order gateway thread for client_id:1
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:128 runOrderGateway() Wed May 14 18:10:42 2025 Starting order gateway loop for client_id:1
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:323 main() Wed May 14 18:10:44 2025 Sending test orders for symbol NSE:RELIANCE (ticker_id: 1001)
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:268 operator()() Wed May 14 18:10:44 2025 Starting response monitoring thread
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:151 processOrderRequest() Wed May 14 18:10:44 2025 Processing order request: MEClientRequest [type:NEW client:1 ticker:1001 oid:1 side:BUY qty:10 price:0] for client_id:1
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:190 sendNewOrder() Wed May 14 18:10:44 2025 Sending new order for client_id:1 symbol:NSE:RELIANCE price:0 qty:10
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:293 operator()() Wed May 14 18:10:44 2025 Received order response: type=1, client_id=1, ticker=1001, order_id=1, side=1, price=0, exec_qty=0, leaves_qty=10
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:229 operator()() Wed May 14 18:10:44 2025 Simulated fill for client_id:1 order_id:1 symbol:NSE:RELIANCE price:0 qty:10
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:293 operator()() Wed May 14 18:10:44 2025 Received order response: type=4, client_id=1, ticker=1001, order_id=1, side=1, price=0, exec_qty=10, leaves_qty=0
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:151 processOrderRequest() Wed May 14 18:10:49 2025 Processing order request: MEClientRequest [type:NEW client:1 ticker:1001 oid:2 side:BUY qty:5 price:10000] for client_id:1
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:190 sendNewOrder() Wed May 14 18:10:49 2025 Sending new order for client_id:1 symbol:NSE:RELIANCE price:10000 qty:5
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:293 operator()() Wed May 14 18:10:49 2025 Received order response: type=1, client_id=1, ticker=1001, order_id=2, side=1, price=100, exec_qty=0, leaves_qty=5
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/order_gw/zerodha_order_gateway_adapter.cpp:229 operator()() Wed May 14 18:10:49 2025 Simulated fill for client_id:1 order_id:2 symbol:NSE:RELIANCE price:10000 qty:5
+/home/praveen/om/siriquantum/ida/tests/zerodha_order_gateway_test.cpp:293 operator()() Wed May 14 18:10:49 2025 Received order response: type=4, client_id=1, ticker=1001, order_id=2, side=1, price=100, exec_qty=5, leaves_qty=0

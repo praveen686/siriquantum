@@ -9,6 +9,9 @@
 #include <vector>
 #include <string>
 #include <cstdint>
+#include <mutex>
+#include <atomic>
+#include <memory>
 
 namespace Adapter {
 namespace Zerodha {
@@ -25,7 +28,7 @@ namespace Zerodha {
  * - Bracket orders with built-in stop-loss/target
  * - Order size adaptation for lot sizes in derivatives
  */
-class ZerodhaLiquidityTaker : public Trading::LiquidityTaker {
+class ZerodhaLiquidityTaker {
 public:
     /**
      * @brief Configuration for Zerodha Liquidity Taker strategy
@@ -92,11 +95,11 @@ public:
                          Trading::TradeEngine *trade_engine, 
                          const Trading::FeatureEngine *feature_engine,
                          Trading::OrderManager *order_manager,
-                         const Trading::TradeEngineCfgHashMap &ticker_cfg,
+                         const Common::TradeEngineCfgHashMap &ticker_cfg,
                          const Config &zerodha_config,
                          const Adapter::Zerodha::ZerodhaMarketDataAdapter *market_data_adapter,
                          Adapter::Zerodha::ZerodhaOrderGatewayAdapter *order_gateway_adapter,
-                         Exchange::ClientRequestLFQueue* client_requests = nullptr,
+                         ::Exchange::ClientRequestLFQueue* client_requests = nullptr,
                          Common::ClientId client_id = 1);
 
     /**
@@ -108,7 +111,7 @@ public:
      * @param book Pointer to market order book
      */
     auto onOrderBookUpdate(Common::TickerId ticker_id, Common::Price price, 
-                          Common::Side side, Trading::MarketOrderBook *book) noexcept -> void override;
+                          Common::Side side, Trading::MarketOrderBook *book) noexcept -> void;
 
     /**
      * @brief Process trade updates
@@ -116,15 +119,15 @@ public:
      * @param market_update Pointer to market update
      * @param book Pointer to market order book
      */
-    auto onTradeUpdate(const Exchange::MEMarketUpdate *market_update, 
-                      Trading::MarketOrderBook *book) noexcept -> void override;
+    auto onTradeUpdate(const ::Exchange::MEMarketUpdate *market_update, 
+                      Trading::MarketOrderBook *book) noexcept -> void;
 
     /**
      * @brief Process order updates
      * 
      * @param client_response Pointer to client response
      */
-    auto onOrderUpdate(const Exchange::MEClientResponse *client_response) noexcept -> void override;
+    auto onOrderUpdate(const ::Exchange::MEClientResponse *client_response) noexcept -> void;
 
 private:
     /**
@@ -247,7 +250,7 @@ private:
      * 
      * @param client_response Client response with fill details
      */
-    void handleBracketOrderFill(const Exchange::MEClientResponse *client_response);
+    void handleBracketOrderFill(const ::Exchange::MEClientResponse *client_response);
     
     /**
      * @brief Create a new bracket order
@@ -276,6 +279,15 @@ private:
      * @return Unique order ID
      */
     Common::OrderId generateOrderId();
+
+    // The encapsulated LiquidityTaker object for delegation
+    std::unique_ptr<Trading::LiquidityTaker> liquidity_taker_;
+    
+    // Underlying components
+    Common::Logger *logger_ = nullptr;
+    Trading::OrderManager *order_manager_ = nullptr;
+    const Trading::FeatureEngine *feature_engine_ = nullptr;
+    const Common::TradeEngineCfgHashMap &ticker_cfg_;
 
     // Zerodha-specific configuration
     const Config zerodha_config_;
@@ -312,7 +324,7 @@ private:
     Common::ClientId client_id_ = 1;
     
     // Outgoing request queue pointer for direct order access
-    Exchange::ClientRequestLFQueue* outgoing_requests_ = nullptr;
+    ::Exchange::ClientRequestLFQueue* outgoing_requests_ = nullptr;
 };
 
 } // namespace Zerodha

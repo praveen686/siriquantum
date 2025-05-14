@@ -289,6 +289,15 @@ auto ZerodhaMarketDataAdapter::getOrderBook(Common::TickerId ticker_id) -> Zerod
     return nullptr;
 }
 
+auto ZerodhaMarketDataAdapter::getOrderBook(Common::TickerId ticker_id) const -> const ZerodhaOrderBook* {
+    std::lock_guard<std::mutex> lock(order_book_mutex_);
+    auto it = order_books_.find(ticker_id);
+    if (it != order_books_.end()) {
+        return it->second.get();
+    }
+    return nullptr;
+}
+
 auto ZerodhaMarketDataAdapter::mapZerodhaInstrumentToInternal(int32_t instrument_token) -> Common::TickerId {
     std::lock_guard<std::mutex> lock(token_mutex_);
     auto it = token_to_ticker_map_.find(instrument_token);

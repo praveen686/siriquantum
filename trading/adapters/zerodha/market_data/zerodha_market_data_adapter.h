@@ -124,6 +124,14 @@ public:
     auto getOrderBook(Common::TickerId ticker_id) -> ZerodhaOrderBook*;
     
     /**
+     * Get order book for a specific ticker (const version)
+     * 
+     * @param ticker_id Internal ticker ID
+     * @return Const pointer to order book or nullptr if not found
+     */
+    auto getOrderBook(Common::TickerId ticker_id) const -> const ZerodhaOrderBook*;
+    
+    /**
      * Map Zerodha instrument token to internal ticker ID
      * 
      * @param instrument_token Zerodha instrument token
@@ -187,7 +195,7 @@ private:
     
     // Order books for each subscribed instrument
     std::map<Common::TickerId, std::unique_ptr<ZerodhaOrderBook>> order_books_;
-    std::mutex order_book_mutex_;
+    mutable std::mutex order_book_mutex_;
     
     // Core components
     std::unique_ptr<EnvironmentConfig> config_;

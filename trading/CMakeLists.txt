@@ -14,4 +14,4 @@ add_subdirectory(adapters)
 # If there are other subdirectories in trading, uncomment and add them
 # add_subdirectory(market_data)
 # add_subdirectory(order_gw)
-# add_subdirectory(strategy)
+add_subdirectory(strategy)
