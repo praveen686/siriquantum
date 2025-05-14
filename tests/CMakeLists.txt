@@ -43,3 +43,17 @@ target_link_libraries(zerodha_order_book_test
     ${OPENSSL_LIBRARIES}
     pthread
 )
+
+# Zerodha order gateway test
+add_executable(zerodha_order_gateway_test zerodha_order_gateway_test.cpp)
+target_link_libraries(zerodha_order_gateway_test 
+    PUBLIC 
+    zerodha_auth
+    zerodha_market_data
+    zerodha_order_gateway
+    libcommon
+    ${Boost_LIBRARIES}
+    ${OPENSSL_LIBRARIES}
+    curl
+    pthread
+)

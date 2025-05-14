@@ -42,6 +42,7 @@ The SiriQuantum trading system follows a modular architecture with clear separat
 │   ├── instruments_reference.md
 │   ├── notes_for_developers.md
 │   ├── plan.md
+│   ├── siriquantum_dev_impl_plan.md # This development and implementation plan document
 │   ├── zerodha_integration_comprehensive_plan.md
 │   ├── zerodha_lob_integration_plan.md
 │   └── zerodha_lob_plan.md
@@ -83,7 +84,9 @@ The SiriQuantum trading system follows a modular architecture with clear separat
     │       │   ├── zerodha_websocket_client.cpp
     │       │   └── zerodha_websocket_client.h
     │       └── order_gw/         # Zerodha order gateway components
-    │           └── zerodha_order_gateway_adapter.h
+    │           ├── README.md     # Documentation for the order gateway
+    │           ├── zerodha_order_gateway_adapter.h
+    │           └── zerodha_order_gateway_adapter.cpp
     ├── market_data/              # Trading market data components
     ├── order_gw/                 # Trading order gateway components
     ├── strategy/                 # Trading strategy implementations
@@ -353,6 +356,8 @@ The risk management system enforces consistent controls across paper and live mo
 
 ### 4.3 Phase 3: Order Gateway Integration (3 weeks)
 - Implement order gateways for both exchanges
+  - Create both paper trading and live trading modes
+  - Implement Zerodha Kite API integration for order management
 - Build order mapping and tracking systems
 - Create order validation logic
 - Implement error handling and recovery
@@ -403,7 +408,9 @@ The risk management system enforces consistent controls across paper and live mo
 - ✅ WebSocket client implementation
 - ✅ Market data adapter (base functionality)
 - ✅ Order book implementation (5-level to full book)
-- ⚠️ Order gateway adapter (partially implemented)
+- ✅ Order gateway adapter (fully implemented)
+  - ✅ Paper trading mode (complete)
+  - ✅ Live trading mode (complete)
 - ⚠️ Zerodha-specific strategies (in progress)
 
 ### 5.3 Binance Integration
@@ -716,3 +723,217 @@ The testing strategy includes:
 This development and implementation plan provides a comprehensive roadmap for building a multi-exchange trading system based on the low-latency architecture from the reference implementation. By following the modular architecture and implementation phases outlined here, the system will support both paper and live trading modes, with seamless switching between them.
 
 The plan emphasizes code quality, performance, and risk management, ensuring a robust and reliable trading system capable of operating in real market conditions. The current implementation has made significant progress in Zerodha integration, with further work needed to complete all components and support additional exchanges like Binance.
+
+## 11. Zerodha Order Gateway Adapter Implementation
+
+### 11.1 Overview
+
+The Zerodha Order Gateway Adapter is a component that handles order submission, tracking, and management between the SiriQuantum trading system and the Zerodha trading platform. It serves as the bridge between internal trading strategies and Zerodha's order placement API.
+
+The adapter supports two operational modes:
+- **Paper Trading Mode**: Simulates order execution locally with configurable parameters
+- **Live Trading Mode**: Sends real orders to Zerodha's trading platform via their API
+
+### 11.2 Architecture
+
+#### 11.2.1 Key Classes
+
+- **ZerodhaOrderGatewayAdapter**: Main adapter class that processes order requests and generates responses
+- **ZerodhaOrderConfig**: Configuration structure for the adapter
+- **ZerodhaOrder**: Internal representation of an order with Zerodha-specific attributes
+
+#### 11.2.2 Data Flow
+
+1. Trading strategies (e.g., Liquidity Taker, Market Maker) generate order requests based on market data analysis
+2. Order requests are placed in the ClientRequestLFQueue (lock-free queue)
+3. The order gateway adapter's main thread continually monitors this queue
+4. When a request is detected, it is processed according to the trading mode:
+   - Paper Trading: Simulated locally with configurable parameters
+   - Live Trading: Sent to Zerodha via API calls
+5. Responses (acceptances, fills, cancellations) are placed in the ClientResponseLFQueue
+6. Trading strategies consume these responses to update their state and make further decisions
+
+### 11.3 Implementation Details
+
+#### 11.3.1 Initialization
+
+The adapter is initialized with the following parameters:
+- Client ID: Unique identifier for the trading client
+- Request Queue: Lock-free queue for incoming order requests
+- Response Queue: Lock-free queue for outgoing order responses
+- API Credentials: Zerodha API key and secret
+- Configuration: Parameters for paper trading simulation and operation
+
+#### 11.3.2 Order Processing
+
+##### Request Types
+
+The adapter handles these order request types:
+- **NEW**: Place a new order (market, limit)
+- **CANCEL**: Cancel an existing order
+
+##### Response Types
+
+The adapter generates these response types:
+- **ACCEPTED**: Order has been accepted (but not yet executed)
+- **FILLED**: Order has been executed (fully or partially)
+- **CANCELED**: Order has been successfully canceled
+- **CANCEL_REJECTED**: Order cancellation was rejected
+
+#### 11.3.3 Paper Trading Mode
+
+In paper trading mode, the adapter simulates order execution with these configurable parameters:
+
+1. **Fill Probability**: Likelihood of an order being filled (0.0-1.0)
+2. **Latency Range**: Min/max simulated processing time (in milliseconds)
+3. **Slippage Factor**: Simulated price movement during execution
+4. **Slippage Model**: Distribution model for price movement (FIXED, NORMAL, PARETO)
+
+The paper trading simulation follows this process:
+1. Order is immediately ACCEPTED
+2. A separate thread simulates order execution with random latency
+3. Based on fill probability, the order is either FILLED or CANCELED
+4. For filled orders, a price slippage is applied based on the configured model
+5. The response is placed in the response queue
+
+#### 11.3.4 Live Trading Mode
+
+In live trading mode, the adapter communicates with Zerodha's API:
+
+1. Authenticates using the ZerodhaAuthenticator component
+2. Converts internal order format to Zerodha's API format
+3. Sends HTTP requests to Zerodha's order API endpoints
+4. Polls for order status updates at configurable intervals
+5. Processes status updates and generates appropriate responses
+
+### 11.4 Configuration
+
+The adapter supports these configuration options:
+
+```cpp
+struct ZerodhaOrderConfig {
+    bool is_paper_trading = false;               // Whether to use paper trading mode
+    std::string api_key;                         // Zerodha API key
+    std::string api_secret;                      // Zerodha API secret
+    std::string totp_secret;                     // TOTP secret for 2FA
+    int reconnect_interval_ms = 1000;            // Interval to retry connection on failure
+    int order_status_poll_interval_ms = 2000;    // Interval to poll order status updates
+    std::string default_exchange = "NSE";        // Default exchange if not specified
+    std::string default_product = "CNC";         // Default product type (CNC, MIS, NRML)
+    
+    // Paper trading simulation parameters
+    double fill_probability = 0.9;               // Probability of order execution
+    double min_latency_ms = 10.0;                // Minimum simulated latency
+    double max_latency_ms = 50.0;                // Maximum simulated latency
+    double slippage_factor = 0.0005;             // Slippage factor (0.05%)
+    std::string slippage_model = "NORMAL";       // Slippage model: FIXED, NORMAL, PARETO
+};
+```
+
+### 11.5 Strategy Integration
+
+#### How Strategies Interact with the Order Gateway
+
+Trading strategies interact with the order gateway adapter through the ClientRequestLFQueue and ClientResponseLFQueue:
+
+1. Strategies analyze market data to make trading decisions
+2. When a decision is made, a strategy creates an order request:
+   ```cpp
+   Exchange::MEClientRequest request;
+   request.type_ = Exchange::ClientRequestType::NEW;
+   request.client_id_ = client_id_;
+   request.ticker_id_ = ticker_id;
+   request.order_id_ = generateOrderId();
+   request.side_ = side;
+   request.price_ = price;  // 0 for market orders
+   request.qty_ = quantity;
+   ```
+
+3. The strategy places this request in the client_requests queue:
+   ```cpp
+   auto next_write = client_requests_->getNextToWriteTo();
+   *next_write = request;
+   client_requests_->updateWriteIndex();
+   ```
+
+4. The order gateway processes the request and generates responses in the client_responses queue
+5. Strategies monitor this queue for responses related to their orders:
+   ```cpp
+   for (auto response = client_responses_->getNextToRead(); 
+        response; 
+        response = client_responses_->getNextToRead()) {
+       
+       if (response->client_id_ == client_id_) {
+           // Process the response based on its type
+           switch (response->type_) {
+               case Exchange::ClientResponseType::ACCEPTED:
+                   // Update strategy state for accepted order
+                   break;
+               case Exchange::ClientResponseType::FILLED:
+                   // Update strategy state for filled order
+                   // Update position, P&L, etc.
+                   break;
+               // Handle other response types...
+           }
+       }
+       
+       client_responses_->updateReadIndex();
+   }
+   ```
+
+#### Strategy-Specific Considerations
+
+Different strategies may use the order gateway differently:
+
+1. **Liquidity Taker Strategy**:
+   - Typically uses market orders for immediate execution
+   - May use aggressive limit orders when price targets are critical
+   - Monitors fill rates and execution quality
+
+2. **Market Maker Strategy**:
+   - Places passive limit orders on both sides of the market
+   - Frequently cancels and replaces orders as market conditions change
+   - Monitors order queue position and fill rates
+
+#### Testing Strategy Integration
+
+When testing the integration between strategies and the order gateway:
+
+1. **Unit Testing**: Test each component in isolation
+   - For order gateway: Mock strategy order placement (as in our current test)
+   - For strategies: Mock order gateway responses
+
+2. **Integration Testing**: Test components working together
+   - Create test scenarios with market data inputs
+   - Verify strategy decisions lead to expected order placement
+   - Verify order responses properly update strategy state
+
+3. **System Testing**: Test the complete system
+   - Run with real or simulated market data
+   - Verify end-to-end operation from market data to order execution
+   - Monitor performance, latency, and error handling
+
+### 11.6 Current Implementation Status
+
+The current implementation of the Zerodha Order Gateway Adapter includes:
+
+1. **Core Functionality**:
+   - Complete order request/response handling
+   - Support for market and limit orders
+   - Support for order cancellation
+
+2. **Paper Trading Mode**:
+   - Fully implemented with configurable parameters
+   - Simulated latency, fills, and slippage
+   - Order tracking and status management
+
+3. **Live Trading Mode**:
+   - Zerodha API integration
+   - Authentication handling
+   - Order status polling
+
+4. **Testing**:
+   - Standalone test program for validating functionality
+   - Support for both paper and live testing modes
+   
+The adapter is now ready for integration with trading strategies, with both paper trading and live trading capabilities fully operational.
