@@ -7,20 +7,27 @@ This directory contains test programs for the IDA Trading System components.
 - `zerodha_auth_test.cpp` - Tests the Zerodha authentication functionality
 - `zerodha_market_data_test.cpp` - Tests the Zerodha market data adapter
 - `zerodha_order_book_test.cpp` - Tests the Zerodha limit order book implementation
-- `test_scaffold.cpp` - Tests the basic scaffolding of the system
+- `zerodha_order_gateway_test.cpp` - Tests the Zerodha order gateway functionality
+- `zerodha_liquidity_taker_test.cpp` - Tests the Zerodha liquidity taker strategy
+- `test_binance_trading_system.cpp` - Tests the complete Binance trading system integration
 
 ## Running Tests
 
 Tests can be run using the scripts in the `scripts` directory:
 
 ```bash
-# Run all tests
-./scripts/run_tests.sh
+# Build the system
+./scripts/system/build.sh
 
-# Run a specific test
-./scripts/test_zerodha_auth.sh
-./scripts/test_zerodha_market_data.sh
-./scripts/test_zerodha_order_book.sh
+# Run specific Zerodha tests
+./scripts/zerodha/test_zerodha_auth.sh
+./scripts/zerodha/test_zerodha_market_data.sh
+./scripts/zerodha/test_zerodha_order_book.sh
+./scripts/zerodha/test_zerodha_order_gateway.sh
+./scripts/zerodha/test_zerodha_liquidity_taker.sh
+
+# Run Binance tests
+./scripts/binance/build_and_test_binance_websocket.sh
 ```
 
 ## Order Book Test
@@ -41,15 +48,19 @@ The test displays:
 To run the order book test:
 
 ```bash
-./scripts/test_zerodha_order_book.sh
+./scripts/zerodha/test_zerodha_order_book.sh
 ```
 
 The test runs continuously until terminated with Ctrl+C.
 
 ## Test Logs
 
-All test logs are written to the `logs` directory. For the order book test, the log file is:
+All test logs are written to the venue-specific subdirectories in the `logs` directory:
 
 ```
-/home/praveen/om/siriquantum/ida/logs/zerodha_order_book_test.log
+# Zerodha test logs
+/home/praveen/om/siriquantum/ida/logs/zerodha/
+
+# Binance test logs
+/home/praveen/om/siriquantum/ida/logs/binance/
 ```
