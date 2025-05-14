@@ -1,0 +1,57 @@
+/home/praveen/om/siriquantum/ida/trading/strategy/trade_engine.cpp:37 TradeEngine() Thu May 15 00:50:56 2025 Initialized TAKER Ticker:0 TradeEngineCfg{clip:0 thresh:0 risk:RiskCfg{max-order-size:0 max-position:0 max-loss:0}}.
+/home/praveen/om/siriquantum/ida/trading/strategy/trade_engine.cpp:37 TradeEngine() Thu May 15 00:50:56 2025 Initialized TAKER Ticker:1 TradeEngineCfg{clip:0 thresh:0 risk:RiskCfg{max-order-size:0 max-position:0 max-loss:0}}.
+/home/praveen/om/siriquantum/ida/trading/strategy/trade_engine.cpp:37 TradeEngine() Thu May 15 00:50:56 2025 Initialized TAKER Ticker:2 TradeEngineCfg{clip:0 thresh:0 risk:RiskCfg{max-order-size:0 max-position:0 max-loss:0}}.
+/home/praveen/om/siriquantum/ida/trading/strategy/trade_engine.cpp:37 TradeEngine() Thu May 15 00:50:56 2025 Initialized TAKER Ticker:3 TradeEngineCfg{clip:0 thresh:0 risk:RiskCfg{max-order-size:0 max-position:0 max-loss:0}}.
+/home/praveen/om/siriquantum/ida/trading/strategy/trade_engine.cpp:37 TradeEngine() Thu May 15 00:50:56 2025 Initialized TAKER Ticker:4 TradeEngineCfg{clip:0 thresh:0 risk:RiskCfg{max-order-size:0 max-position:0 max-loss:0}}.
+/home/praveen/om/siriquantum/ida/trading/strategy/trade_engine.cpp:37 TradeEngine() Thu May 15 00:50:56 2025 Initialized TAKER Ticker:5 TradeEngineCfg{clip:0 thresh:0 risk:RiskCfg{max-order-size:0 max-position:0 max-loss:0}}.
+/home/praveen/om/siriquantum/ida/trading/strategy/trade_engine.cpp:37 TradeEngine() Thu May 15 00:50:56 2025 Initialized TAKER Ticker:6 TradeEngineCfg{clip:0 thresh:0 risk:RiskCfg{max-order-size:0 max-position:0 max-loss:0}}.
+/home/praveen/om/siriquantum/ida/trading/strategy/trade_engine.cpp:37 TradeEngine() Thu May 15 00:50:56 2025 Initialized TAKER Ticker:7 TradeEngineCfg{clip:0 thresh:0 risk:RiskCfg{max-order-size:0 max-position:0 max-loss:0}}.
+/home/praveen/om/siriquantum/ida/trading/strategy/trade_engine.cpp:74 run() Thu May 15 00:51:08 2025
+/home/praveen/om/siriquantum/ida/trading/strategy/market_order_book.cpp:11 ~MarketOrderBook() Thu May 15 00:51:55 2025 OrderBook
+Ticker:0
+
+                          X
+
+
+/home/praveen/om/siriquantum/ida/trading/strategy/market_order_book.cpp:11 ~MarketOrderBook() Thu May 15 00:51:55 2025 OrderBook
+Ticker:1
+
+                          X
+
+
+/home/praveen/om/siriquantum/ida/trading/strategy/market_order_book.cpp:11 ~MarketOrderBook() Thu May 15 00:51:55 2025 OrderBook
+Ticker:2
+
+                          X
+
+
+/home/praveen/om/siriquantum/ida/trading/strategy/market_order_book.cpp:11 ~MarketOrderBook() Thu May 15 00:51:55 2025 OrderBook
+Ticker:3
+
+                          X
+
+
+/home/praveen/om/siriquantum/ida/trading/strategy/market_order_book.cpp:11 ~MarketOrderBook() Thu May 15 00:51:55 2025 OrderBook
+Ticker:4
+
+                          X
+
+
+/home/praveen/om/siriquantum/ida/trading/strategy/market_order_book.cpp:11 ~MarketOrderBook() Thu May 15 00:51:55 2025 OrderBook
+Ticker:5
+
+                          X
+
+
+/home/praveen/om/siriquantum/ida/trading/strategy/market_order_book.cpp:11 ~MarketOrderBook() Thu May 15 00:51:55 2025 OrderBook
+Ticker:6
+
+                          X
+
+
+/home/praveen/om/siriquantum/ida/trading/strategy/market_order_book.cpp:11 ~MarketOrderBook() Thu May 15 00:51:55 2025 OrderBook
+Ticker:7
+
+                          X
+
+

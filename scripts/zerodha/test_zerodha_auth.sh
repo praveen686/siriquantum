@@ -4,7 +4,9 @@
 
 # Set up environment
 echo "Setting up build environment..."
-CMAKE_DIR="/home/praveen/om/siriquantum/ida"
+# Get the project root directory (two levels up from script directory)
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CMAKE_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 BUILD_DIR="${CMAKE_DIR}/build"
 
 # Make build directory if it doesn't exist

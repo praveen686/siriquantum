@@ -6,12 +6,12 @@
 #include "trading/adapters/zerodha/auth/zerodha_authenticator.h"
 
 int main() {
-    // Set up logs directory path
-    std::filesystem::path logs_dir = "/home/praveen/om/siriquantum/ida/logs";
+    // Set up logs directory path for Zerodha
+    std::filesystem::path logs_dir = "/home/praveen/om/siriquantum/ida/logs/zerodha";
     std::filesystem::create_directories(logs_dir); // Ensure directory exists
     
     // Initialize logger with path to logs directory
-    Common::Logger logger((logs_dir / "zerodha_auth_test.log").string());
+    Common::Logger logger((logs_dir / "auth_test.log").string());
     
     try {
         std::cout << "Starting Pure C++ Zerodha Authenticator Test..." << std::endl;

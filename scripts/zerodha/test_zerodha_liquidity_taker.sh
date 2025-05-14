@@ -5,10 +5,10 @@ set -e
 
 # Get the script directory
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 
 # Set log file
-LOG_FILE="$PROJECT_ROOT/logs/zerodha_liquidity_taker_test.log"
+LOG_FILE="$PROJECT_ROOT/logs/zerodha/liquidity_taker_test.log"
 
 # Create logs directory if not exists
 mkdir -p "$(dirname "$LOG_FILE")"

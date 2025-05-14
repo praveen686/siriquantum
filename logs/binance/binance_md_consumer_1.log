@@ -1,0 +1,12 @@
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:502 start() Thu May 15 00:55:00 2025 Initializing streams for symbol BTCUSDT
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:480 operator()() Thu May 15 00:55:00 2025 Starting IO context thread
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:490 operator()() Thu May 15 00:55:00 2025 IO context thread stopped
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:295 connect() Thu May 15 00:55:00 2025 Resolving: stream.testnet.binance.vision 443
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:565 connectToDepthStream() Thu May 15 00:55:00 2025 Connected to depth stream for BTCUSDT
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:295 connect() Thu May 15 00:55:00 2025 Resolving: stream.testnet.binance.vision 443
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:589 connectToTradeStream() Thu May 15 00:55:00 2025 Connected to trade stream for BTCUSDT
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:613 getOrderBookSnapshot() Thu May 15 00:55:01 2025 Getting depth snapshot for BTCUSDT
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:753 initializeOrderBook() Thu May 15 00:55:01 2025 Sent CLEAR update for BTCUSDT
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:816 initializeOrderBook() Thu May 15 00:55:01 2025 Initialized order book for BTCUSDT with lastUpdateId=3232900. Added 29 bids and 24 asks.
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:842 processBufferedUpdates() Thu May 15 00:55:01 2025 No buffered updates for BTCUSDT
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/market_data/binance_market_data_consumer.cpp:520 start() Thu May 15 00:55:01 2025 Successfully initialized order book for BTCUSDT

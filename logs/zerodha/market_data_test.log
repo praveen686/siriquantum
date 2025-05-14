@@ -1,0 +1,209 @@
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:30 main() Wed May 14 19:20:27 2025 Starting Enhanced Zerodha Market Data Adapter Test...
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:43 main() Wed May 14 19:20:27 2025 Using config file: /home/praveen/om/siriquantum/ida/config/trading.json
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:52 main() Wed May 14 19:20:27 2025 Creating market data adapter with JSON configuration
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:97 EnvironmentConfig() Wed May 14 19:20:27 2025 Initializing EnvironmentConfig with env file: , config file: /home/praveen/om/siriquantum/ida/config/trading.json
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:332 loadFromJson() Wed May 14 19:20:27 2025 Loaded JSON configuration with 4 sections
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 19:20:27 2025 - Found config section: exchanges
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 19:20:27 2025 - Found config section: instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 19:20:27 2025 - Found config section: risk
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 19:20:27 2025 - Found config section: trading_system
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:149 load() Wed May 14 19:20:27 2025 Successfully loaded configuration from JSON file: /home/praveen/om/siriquantum/ida/config/trading.json
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:302 load() Wed May 14 19:20:27 2025 Loaded configuration: 4 instruments, 0 symbol mappings, 3 index futures
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:307 load() Wed May 14 19:20:27 2025 Trading mode: PAPER
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:61 main() Wed May 14 19:20:27 2025 Successfully loaded configuration from /home/praveen/om/siriquantum/ida/config/trading.json
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:67 main() Wed May 14 19:20:27 2025 Trading mode: PAPER
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:15 ZerodhaMarketDataAdapter() Wed May 14 19:20:27 2025 Initializing Zerodha Market Data Adapter with JSON config file: /home/praveen/om/siriquantum/ida/config/trading.json
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:97 EnvironmentConfig() Wed May 14 19:20:27 2025 Initializing EnvironmentConfig with env file: , config file: /home/praveen/om/siriquantum/ida/config/trading.json
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:332 loadFromJson() Wed May 14 19:20:27 2025 Loaded JSON configuration with 4 sections
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 19:20:27 2025 - Found config section: exchanges
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 19:20:27 2025 - Found config section: instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 19:20:27 2025 - Found config section: risk
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 19:20:27 2025 - Found config section: trading_system
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:149 load() Wed May 14 19:20:27 2025 Successfully loaded configuration from JSON file: /home/praveen/om/siriquantum/ida/config/trading.json
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:302 load() Wed May 14 19:20:27 2025 Loaded configuration: 4 instruments, 0 symbol mappings, 3 index futures
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:307 load() Wed May 14 19:20:27 2025 Trading mode: PAPER
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/auth/zerodha_authenticator.cpp:95 from_config() Wed May 14 19:20:27 2025 Creating ZerodhaAuthenticator from EnvironmentConfig
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/auth/zerodha_authenticator.cpp:74 ZerodhaAuthenticator() Wed May 14 19:20:27 2025 Pure C++ Authenticator: Token will be stored at: /home/praveen/om/siriquantum/ida/.cache/zerodha/token_NQ8574.json
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/auth/zerodha_authenticator.cpp:488 load_session() Wed May 14 19:20:27 2025 Loaded existing session from cache
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:58 initialize() Wed May 14 19:20:27 2025 Initializing InstrumentTokenManager
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:53 InstrumentTokenManager() Wed May 14 19:20:27 2025 Initialized InstrumentTokenManager with cache at: .cache/zerodha/instruments.csv
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:72 initialize() Wed May 14 19:20:27 2025 Initializing InstrumentTokenManager
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:110 initialize() Wed May 14 19:20:27 2025 Using cached instrument data
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:686 loadFromCache() Wed May 14 19:20:27 2025 Loaded 7391137 bytes from cache file
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:454 parseCSV() Wed May 14 19:20:27 2025 Processed 10000 CSV lines, 10000 valid instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:454 parseCSV() Wed May 14 19:20:27 2025 Processed 20000 CSV lines, 20000 valid instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:454 parseCSV() Wed May 14 19:20:27 2025 Processed 30000 CSV lines, 30000 valid instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:454 parseCSV() Wed May 14 19:20:27 2025 Processed 40000 CSV lines, 40000 valid instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:454 parseCSV() Wed May 14 19:20:28 2025 Processed 50000 CSV lines, 50000 valid instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:454 parseCSV() Wed May 14 19:20:28 2025 Processed 60000 CSV lines, 60000 valid instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:454 parseCSV() Wed May 14 19:20:28 2025 Processed 70000 CSV lines, 70000 valid instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:454 parseCSV() Wed May 14 19:20:28 2025 Processed 80000 CSV lines, 80000 valid instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:454 parseCSV() Wed May 14 19:20:28 2025 Processed 90000 CSV lines, 90000 valid instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:461 parseCSV() Wed May 14 19:20:28 2025 Finished parsing CSV: 92102 lines, 92102 valid instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:720 buildIndices() Wed May 14 19:20:28 2025 Building lookup indices for 92102 instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:752 buildIndices() Wed May 14 19:20:29 2025 Built indices: 92102 tokens, 92102 symbols, 84560 names, 221 future indices
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:122 initialize() Wed May 14 19:20:29 2025 Successfully loaded 92102 instruments
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:86 main() Wed May 14 19:20:29 2025 Starting market data adapter
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:78 start() Wed May 14 19:20:29 2025 Starting Zerodha Market Data Adapter
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:337 authenticate() Wed May 14 19:20:29 2025 Authenticating with Zerodha
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/auth/zerodha_authenticator.cpp:128 authenticate() Wed May 14 19:20:29 2025 Using cached session
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:357 authenticate() Wed May 14 19:20:29 2025 Successfully authenticated
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:36 ZerodhaWebSocketClient() Wed May 14 19:20:29 2025 Initializing Boost.Beast WebSocket client
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:364 runMarketData() Wed May 14 19:20:29 2025 Zerodha Market Data thread started
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:130 connect() Wed May 14 19:20:29 2025 Connecting to Zerodha WebSocket: wss://ws.kite.trade/?api_key=n8o9wnb25ov492cq&access_token=hgdR9B2EUC0KiTelHVTdfHY10ynSrx6k
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:159 connect() Wed May 14 19:20:29 2025 Connection details: host='ws.kite.trade', path='/?api_key=n8o9wnb25ov492cq&access_token=hgdR9B2EUC0KiTelHVTdfHY10ynSrx6k', port=443, secure=true
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:377 runMarketData() Wed May 14 19:20:29 2025 Connected to Zerodha WebSocket
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:167 operator()() Wed May 14 19:20:29 2025 Starting WebSocket client thread
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:218 operator()() Wed May 14 19:20:29 2025 WebSocket connection established
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:547 on_connect() Wed May 14 19:20:29 2025 Connected to Zerodha WebSocket
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:608 on_message() Wed May 14 19:20:29 2025 Received text message: {"type": "instruments_meta", "data": {"count": 92079, "etag": "W/\"68243215-3075\""}}
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:32 2025 Received binary message of length 1
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:633 parse_binary_message() Wed May 14 19:20:32 2025 Binary message too short: 1 bytes
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:115 main() Wed May 14 19:20:34 2025 Connected to Zerodha WebSocket
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:121 main() Wed May 14 19:20:34 2025 Subscribing to test symbols from environment configuration
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:324 subscribeToTestSymbols() Wed May 14 19:20:34 2025 Subscribing to 5 test symbols
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:138 subscribe() Wed May 14 19:20:34 2025 Subscribing to Zerodha symbol: NSE:RELIANCE (internal ID: 7245)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:192 getInstrumentToken() Wed May 14 19:20:34 2025 Found token 738561 for symbol NSE:RELIANCE
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:17 ZerodhaOrderBook() Creating ZerodhaOrderBook for ticker_id 7245
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:175 subscribe() Wed May 14 19:20:34 2025 Created order book for symbol: NSE:RELIANCE (ID: 7245)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:182 subscribe() Wed May 14 19:20:34 2025 Found token 738561 for symbol NSE:RELIANCE
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:917 send_subscription() Wed May 14 19:20:34 2025 Sending subscription: action=subscribe, tokens={"a":"subscribe","v":[738561]}
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:35 2025 Received binary message of length 1
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:633 parse_binary_message() Wed May 14 19:20:35 2025 Binary message too short: 1 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:968 send_mode_change() Wed May 14 19:20:35 2025 Sending mode change: mode=full, tokens={"a":"mode","v":["full",[738561]]}
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:138 subscribe() Wed May 14 19:20:35 2025 Subscribing to Zerodha symbol: NSE:SBIN (internal ID: 6593)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:192 getInstrumentToken() Wed May 14 19:20:35 2025 Found token 779521 for symbol NSE:SBIN
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:17 ZerodhaOrderBook() Creating ZerodhaOrderBook for ticker_id 6593
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:175 subscribe() Wed May 14 19:20:35 2025 Created order book for symbol: NSE:SBIN (ID: 6593)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:182 subscribe() Wed May 14 19:20:35 2025 Found token 779521 for symbol NSE:SBIN
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:917 send_subscription() Wed May 14 19:20:35 2025 Sending subscription: action=subscribe, tokens={"a":"subscribe","v":[779521]}
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:968 send_mode_change() Wed May 14 19:20:35 2025 Sending mode change: mode=full, tokens={"a":"mode","v":["full",[779521]]}
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:138 subscribe() Wed May 14 19:20:35 2025 Subscribing to Zerodha symbol: NSE:INFY (internal ID: 7538)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:192 getInstrumentToken() Wed May 14 19:20:35 2025 Found token 408065 for symbol NSE:INFY
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:17 ZerodhaOrderBook() Creating ZerodhaOrderBook for ticker_id 7538
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:175 subscribe() Wed May 14 19:20:35 2025 Created order book for symbol: NSE:INFY (ID: 7538)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:182 subscribe() Wed May 14 19:20:35 2025 Found token 408065 for symbol NSE:INFY
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:917 send_subscription() Wed May 14 19:20:35 2025 Sending subscription: action=subscribe, tokens={"a":"subscribe","v":[408065]}
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:968 send_mode_change() Wed May 14 19:20:35 2025 Sending mode change: mode=full, tokens={"a":"mode","v":["full",[408065]]}
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:138 subscribe() Wed May 14 19:20:35 2025 Subscribing to Zerodha symbol: NSE:TCS (internal ID: 2027)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:192 getInstrumentToken() Wed May 14 19:20:35 2025 Found token 2953217 for symbol NSE:TCS
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:17 ZerodhaOrderBook() Creating ZerodhaOrderBook for ticker_id 2027
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:175 subscribe() Wed May 14 19:20:35 2025 Created order book for symbol: NSE:TCS (ID: 2027)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:182 subscribe() Wed May 14 19:20:35 2025 Found token 2953217 for symbol NSE:TCS
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:917 send_subscription() Wed May 14 19:20:35 2025 Sending subscription: action=subscribe, tokens={"a":"subscribe","v":[2953217]}
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:968 send_mode_change() Wed May 14 19:20:35 2025 Sending mode change: mode=full, tokens={"a":"mode","v":["full",[2953217]]}
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:138 subscribe() Wed May 14 19:20:35 2025 Subscribing to Zerodha symbol: NSE:HDFCBANK (internal ID: 1456)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:192 getInstrumentToken() Wed May 14 19:20:35 2025 Found token 341249 for symbol NSE:HDFCBANK
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:17 ZerodhaOrderBook() Creating ZerodhaOrderBook for ticker_id 1456
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:175 subscribe() Wed May 14 19:20:35 2025 Created order book for symbol: NSE:HDFCBANK (ID: 1456)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:182 subscribe() Wed May 14 19:20:35 2025 Found token 341249 for symbol NSE:HDFCBANK
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:917 send_subscription() Wed May 14 19:20:35 2025 Sending subscription: action=subscribe, tokens={"a":"subscribe","v":[341249]}
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:968 send_mode_change() Wed May 14 19:20:35 2025 Sending mode change: mode=full, tokens={"a":"mode","v":["full",[341249]]}
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:129 main() Wed May 14 19:20:35 2025 Subscribing to NIFTY 50 index to test futures handling
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:138 subscribe() Wed May 14 19:20:35 2025 Subscribing to Zerodha symbol: NSE:NIFTY 50 (internal ID: 3939)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/instrument_token_manager.cpp:192 getInstrumentToken() Wed May 14 19:20:35 2025 Found token 256265 for symbol NSE:NIFTY 50
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:17 ZerodhaOrderBook() Creating ZerodhaOrderBook for ticker_id 3939
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:175 subscribe() Wed May 14 19:20:35 2025 Created order book for symbol: NSE:NIFTY 50 (ID: 3939)
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_market_data_adapter.cpp:182 subscribe() Wed May 14 19:20:35 2025 Found token 256265 for symbol NSE:NIFTY 50
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:917 send_subscription() Wed May 14 19:20:35 2025 Sending subscription: action=subscribe, tokens={"a":"subscribe","v":[256265]}
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:968 send_mode_change() Wed May 14 19:20:35 2025 Sending mode change: mode=full, tokens={"a":"mode","v":["full",[256265]]}
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:138 main() Wed May 14 19:20:35 2025 Waiting for market data updates (30 seconds)...
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:35 2025 Received binary message of length 966
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:35 2025 Processing 6 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:35 2025 Successfully processed 6 of 6 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:149 generateMarketEvents() ADD ASK 1592.4 x 2057 [13 orders]
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:192 generateMarketEvents() TRADE 1592.4 x 1
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:93 generateMarketEvents() ADD BID 1424.4 x 2160 [23 orders]
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:192 generateMarketEvents() TRADE 1424.4 x 1
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:93 generateMarketEvents() ADD BID 800.7 x 23242 [44 orders]
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:192 generateMarketEvents() TRADE 800.7 x 1
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:93 generateMarketEvents() ADD BID 1910.6 x 327 [18 orders]
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:192 generateMarketEvents() TRADE 1910.6 x 3
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:93 generateMarketEvents() ADD BID 3548.7 x 701 [6 orders]
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/orderbook/zerodha_order_book.cpp:192 generateMarketEvents() TRADE 3548.7 x 5
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:162 main() Wed May 14 19:20:35 2025 Market update: ticker=7538 (NSE:INFY), price=15.92, qty=2057, side=SELL, type=2
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:162 main() Wed May 14 19:20:35 2025 Market update: ticker=7538 (NSE:INFY), price=15.92, qty=1, side=SELL, type=5
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:162 main() Wed May 14 19:20:35 2025 Market update: ticker=7245 (NSE:RELIANCE), price=14.24, qty=2160, side=BUY, type=2
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:162 main() Wed May 14 19:20:35 2025 Market update: ticker=7245 (NSE:RELIANCE), price=14.24, qty=1, side=SELL, type=5
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:162 main() Wed May 14 19:20:35 2025 Market update: ticker=6593 (NSE:SBIN), price=8, qty=23242, side=BUY, type=2
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:162 main() Wed May 14 19:20:35 2025 Market update: ticker=6593 (NSE:SBIN), price=8, qty=1, side=SELL, type=5
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:162 main() Wed May 14 19:20:35 2025 Market update: ticker=1456 (NSE:HDFCBANK), price=19.1, qty=327, side=BUY, type=2
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:162 main() Wed May 14 19:20:35 2025 Market update: ticker=1456 (NSE:HDFCBANK), price=19.1, qty=3, side=SELL, type=5
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:162 main() Wed May 14 19:20:35 2025 Market update: ticker=2027 (NSE:TCS), price=35.48, qty=701, side=BUY, type=2
+/home/praveen/om/siriquantum/ida/tests/zerodha_market_data_test.cpp:162 main() Wed May 14 19:20:35 2025 Market update: ticker=2027 (NSE:TCS), price=35.48, qty=5, side=SELL, type=5
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:35 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:35 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:35 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:35 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:35 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:35 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:36 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:36 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:36 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:36 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:36 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:36 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:36 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:36 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:36 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:37 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:37 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:37 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:37 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:37 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:37 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:37 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:37 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:37 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:38 2025 Received binary message of length 1
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:633 parse_binary_message() Wed May 14 19:20:38 2025 Binary message too short: 1 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:38 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:38 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:38 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:38 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:38 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:38 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:38 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:38 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:38 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:39 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:39 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:39 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:39 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:39 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:39 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:39 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:39 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:39 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:40 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:40 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:40 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:40 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:40 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:40 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:40 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:40 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:40 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:41 2025 Received binary message of length 1
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:633 parse_binary_message() Wed May 14 19:20:41 2025 Binary message too short: 1 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:41 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:41 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:41 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:41 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:41 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:41 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:41 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:41 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:41 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:42 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:42 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:42 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:42 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:42 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:42 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:42 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:42 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:42 2025 Successfully processed 1 of 1 packets
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:593 on_message() Wed May 14 19:20:43 2025 Received binary message of length 36
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:642 parse_binary_message() Wed May 14 19:20:43 2025 Processing 1 packets from binary message
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/zerodha_websocket_client.cpp:687 parse_binary_message() Wed May 14 19:20:43 2025 Successfully processed 1 of 1 packets

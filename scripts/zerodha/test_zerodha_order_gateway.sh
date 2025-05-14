@@ -5,8 +5,8 @@ set -e
 
 # Build the test
 echo "Building Zerodha Order Gateway test..."
-cd "$(dirname "$0")/.."
-./scripts/build.sh
+cd "$(dirname "$0")/../.."
+./scripts/system/build.sh
 
 # Parse command line arguments
 CONFIG_FILE=""

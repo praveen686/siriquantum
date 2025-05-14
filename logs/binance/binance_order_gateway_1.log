@@ -1,0 +1,83 @@
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:798 run() Thu May 15 00:54:57 2025 Starting BinanceOrderGatewayAdapter loop
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:483 pollOrderStatuses() Thu May 15 00:54:58 2025 Starting order status polling thread
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:571 processClientRequest() Thu May 15 00:55:01 2025 Processing client request: type=NEW, ticker_id=0, order_id=1, side=BUY, price=10360260, qty=100
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:597 processClientRequest() Thu May 15 00:55:01 2025 Submitting order to Binance: symbol=BTCUSDT, side=BUY, price=103603, qty=1
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:01 2025 Sending POST request to https://testnet.binance.vision/api/v3/order
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:128 sendRequest() Thu May 15 00:55:01 2025 POST data: symbol=BTCUSDT&side=BUY&type=LIMIT&timeInForce=GTC&quantity=1.00000000&price=103602.60000000&timestamp=1747250701468&signature=8ae5bb94a6679a16d2bf2f24cb4bf1f25b975ab9501dc0ec1727be17280ca067
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:01 2025 HTTP status: 200, Response size: 412 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:55:01 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:299 sendNewOrder() Thu May 15 00:55:01 2025 New order placed: 1 -> Binance ID: 2196017
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:619 processClientRequest() Thu May 15 00:55:01 2025 Binance response: {
+	"clientOrderId" : "g31w7XPzi1JcUhwk11nKoA",
+	"cummulativeQuoteQty" : "0.00000000",
+	"executedQty" : "0.00000000",
+	"fills" : [],
+	"orderId" : 2196017,
+	"orderListId" : -1,
+	"origQty" : "1.00000000",
+	"origQuoteOrderQty" : "0.00000000",
+	"price" : "103602.60000000",
+	"selfTradePreventionMode" : "EXPIRE_MAKER",
+	"side" : "BUY",
+	"status" : "NEW",
+	"symbol" : "BTCUSDT",
+	"timeInForce" : "GTC",
+	"transactTime" : 1747250701809,
+	"type" : "LIMIT",
+	"workingTime" : 1747250701809
+}
+
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:625 processClientRequest() Thu May 15 00:55:01 2025 Order successfully placed: order_id=1, binance_order_id=2196017
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:791 createClientResponse() Thu May 15 00:55:01 2025 Sent client response: type=ACCEPTED, ticker_id=0, order_id=1
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:571 processClientRequest() Thu May 15 00:55:01 2025 Processing client request: type=NEW, ticker_id=0, order_id=2, side=SELL, price=10361050, qty=100
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:597 processClientRequest() Thu May 15 00:55:01 2025 Submitting order to Binance: symbol=BTCUSDT, side=SELL, price=103610, qty=1
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:01 2025 Sending POST request to https://testnet.binance.vision/api/v3/order
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:128 sendRequest() Thu May 15 00:55:01 2025 POST data: symbol=BTCUSDT&side=SELL&type=LIMIT&timeInForce=GTC&quantity=1.00000000&price=103610.50000000&timestamp=1747250701855&signature=24c34f08051e221f4ca98c74974110b1a0a7171b44f0abc26e7c6a884764faec
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:02 2025 HTTP status: 400, Response size: 77 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:185 sendRequest() Thu May 15 00:55:02 2025 HTTP error 400: {"code":-2010,"msg":"Account has insufficient balance for requested action."}
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:619 processClientRequest() Thu May 15 00:55:02 2025 Binance response: {
+	"code" : -2010,
+	"http_code" : 400,
+	"msg" : "Account has insufficient balance for requested action."
+}
+
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:632 processClientRequest() Thu May 15 00:55:02 2025 Order rejected by Binance: code=-2010, message=Account has insufficient balance for requested action.
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:791 createClientResponse() Thu May 15 00:55:02 2025 Sent client response: type=REJECTED, ticker_id=0, order_id=2
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:03 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250703876&signature=6b80ebb949ad20ad1ddd23385dd9a4533701c98fac8b512ce677bfcaf1fb0006
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:04 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:55:04 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:09 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250709502&signature=5ea62ec29cbba4694f2cd5c579af784576905a5f5e2b597d150ce01d7a20bceb
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:09 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:55:09 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:15 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250715116&signature=be7d19287b37c29c4c9f2774d16f425efc94f768bfb7a3193153acb5c4c7c71d
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:15 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:55:15 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:20 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250720733&signature=6129eaac6042ed5509fbb00d61514056575dc753e678f1c1eb0611bf296bad1a
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:21 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:55:21 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:26 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250726345&signature=4d1ce205be22848e3659aea08192aac0d05d1433fe937d2115b42c69af75f96d
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:26 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:55:26 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:31 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250731955&signature=982a92929edab01b1108af474c96e33c0af477f57edf6aa1e964b486d6288951
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:32 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:55:32 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:37 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250737568&signature=21e3e61af0069bf2a365c8ad659a2a3e7398f69711a72fc97b8e471820aa96eb
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:37 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:55:37 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:43 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250743184&signature=2c8a91d15178b31448698a11a290720db5199aab63503e66f73a303ce88b1ce8
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:43 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:55:43 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:48 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250748808&signature=9caa788d9bf6d896ca9e2068e1613cc57787638ed8ae8c4f49efd7e3931061c7
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:49 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:55:49 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:55:54 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250754439&signature=128462f0b7b4f17f1d2ffbc2e2c920684c72b3bfeb48f40e4a3aeedbe7b1ec03
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:55:54 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:55:54 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:56:00 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250760048&signature=2f08cb02792c500ac69e5346a4698d61308252c3cbec29c5cae7723799c63fe1
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:56:00 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:56:00 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:122 sendRequest() Thu May 15 00:56:05 2025 Sending GET request to https://testnet.binance.vision/api/v3/order?symbol=BTCUSDT&orderId=2196017&timestamp=1747250765656&signature=41e1b9576822dd46be661eaf93ad23677bcdb3682c0a020a21c07e8981809988
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:180 sendRequest() Thu May 15 00:56:06 2025 HTTP status: 200, Response size: 488 bytes
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:223 sendRequest() Thu May 15 00:56:06 2025 Successfully parsed JSON response
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:827 run() Thu May 15 00:56:06 2025 BinanceOrderGatewayAdapter loop stopped
+/home/praveen/om/siriquantum/ida/trading/adapters/binance/order_gw/binance_order_gateway_adapter.cpp:522 pollOrderStatuses() Thu May 15 00:56:11 2025 Order status polling thread stopped

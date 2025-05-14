@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# Change to script directory
-cd "$(dirname "$0")"
+# Get script directory and project root
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 
 # Build path and name
-BUILD_DIR="../build"
+BUILD_DIR="${PROJECT_ROOT}/build"
 TEST_NAME="zerodha_order_book_test"
 
 # Ensure build directory exists
@@ -18,7 +19,7 @@ cd "$BUILD_DIR"
 
 # Compile
 echo "Building $TEST_NAME..."
-cmake .. && make $TEST_NAME
+cmake "$PROJECT_ROOT" && make $TEST_NAME
 
 # Check if compilation succeeded
 if [ $? -ne 0 ]; then

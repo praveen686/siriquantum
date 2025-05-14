@@ -50,13 +50,12 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     // Register signal handler
     std::signal(SIGINT, signalHandler);
     
-    // Set up logs directory path
-    std::filesystem::path logs_dir = "/home/praveen/om/siriquantum/ida/logs";
+    // Set up logs directory path for Zerodha
+    std::filesystem::path logs_dir = "/home/praveen/om/siriquantum/ida/logs/zerodha";
     std::filesystem::create_directories(logs_dir); // Ensure directory exists
     
     // Create a logger - make sure directory exists first
-    std::filesystem::create_directories(logs_dir);
-    std::string log_file = (logs_dir / "zerodha_liquidity_taker_test.log").string();
+    std::string log_file = (logs_dir / "liquidity_taker_test.log").string();
     std::cout << "Creating logger with log file: " << log_file << std::endl;
     std::string time_str;
     logger = new Logger(log_file);

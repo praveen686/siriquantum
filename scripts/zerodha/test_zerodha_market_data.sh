@@ -5,8 +5,8 @@ set -e
 
 # Build the test
 echo "Building Zerodha Market Data test..."
-cd "$(dirname "$0")/.."
-./scripts/build.sh
+cd "$(dirname "$0")/../.."
+./scripts/system/build.sh
 
 # Run the test
 if [ "$1" != "" ]; then

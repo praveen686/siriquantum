@@ -88,12 +88,12 @@ void processMarketUpdates(ExchangeNS::MEMarketUpdateLFQueue* queue, Common::Logg
 }
 
 int main(int /* argc */, char** /* argv */) {
-    // Set up logs directory path
-    std::filesystem::path logs_dir = "/home/praveen/om/siriquantum/ida/logs";
+    // Set up logs directory path for Zerodha
+    std::filesystem::path logs_dir = "/home/praveen/om/siriquantum/ida/logs/zerodha";
     std::filesystem::create_directories(logs_dir); // Ensure directory exists
     
     // Initialize logger with path to logs directory
-    Common::Logger logger((logs_dir / "zerodha_order_book_test.log").string());
+    Common::Logger logger((logs_dir / "order_book_test.log").string());
     
     std::string time_str;
     logger.log("%:% %() % Starting Zerodha Order Book Test...\n", 
