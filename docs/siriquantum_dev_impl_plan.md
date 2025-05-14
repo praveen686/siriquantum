@@ -22,30 +22,31 @@ The SiriQuantum trading system follows a modular architecture with clear separat
 /home/praveen/om/siriquantum/ida/
 ├── CMakeLists.txt
 ├── README.md
+├── build/                        # Build artifacts
 ├── common/                       # Common utilities shared across all components
 │   ├── lf_queue.h                # Lock-free queue for inter-thread communication
 │   ├── logging.h                 # High-performance lock-free logging system
 │   ├── macros.h                  # Common macros used throughout the codebase
 │   ├── market_data/              # Common market data structures
 │   ├── mem_pool.h                # Memory pool for efficient memory management
+│   ├── mcast_socket.cpp          # Multicast socket implementation
+│   ├── mcast_socket.h            # Multicast socket interface
 │   ├── order_gw/                 # Common order gateway interfaces
 │   ├── socket_utils.h            # Socket utilities
 │   ├── strategy/                 # Common strategy interfaces
+│   ├── tcp_server.cpp            # TCP server implementation
+│   ├── tcp_server.h              # TCP server interface
+│   ├── tcp_socket.cpp            # TCP socket implementation
+│   ├── tcp_socket.h              # TCP socket interface
 │   ├── thread_utils.h            # Thread management utilities
 │   ├── time_utils.h              # Time-related utilities
 │   └── types.h                   # Common type definitions
 ├── config/                       # Configuration files
+│   ├── README.md                 # Configuration documentation
 │   └── trading.json              # Main configuration file
 ├── docs/                         # Documentation
-│   ├── discussions.md
-│   ├── env_config_reference.md
-│   ├── instruments_reference.md
-│   ├── notes_for_developers.md
-│   ├── plan.md
 │   ├── siriquantum_dev_impl_plan.md # This development and implementation plan document
-│   ├── zerodha_integration_comprehensive_plan.md
-│   ├── zerodha_lob_integration_plan.md
-│   └── zerodha_lob_plan.md
+│   └── unified_trading_adapter_refactoring_plan.md # Refactoring plan for unified adapters
 ├── exchange/                     # Exchange simulation components
 │   ├── market_data/              # Market data publishing
 │   │   └── market_update.h       # Market update definition
@@ -56,40 +57,106 @@ The SiriQuantum trading system follows a modular architecture with clear separat
 │   │   └── client_response.h     # Client response definition
 │   └── strategy/                 # Strategy interfaces for exchange
 ├── logs/                         # Log files
+│   ├── binance/                  # Binance-specific logs
+│   │   ├── binance_md_consumer_1.log  # Market data consumer logs
+│   │   ├── binance_order_gateway_1.log # Order gateway logs
+│   │   └── test_binance_system.log    # System test logs
+│   └── zerodha/                  # Zerodha-specific logs
+│       ├── auth_test.log         # Authentication test logs
+│       ├── liquidity_taker_test.log # Liquidity taker test logs
+│       ├── market_data_test.log  # Market data test logs
+│       ├── order_gateway_test.log # Order gateway test logs
+│       ├── zerodha_auth_test.log # Older auth test logs
+│       ├── zerodha_liquidity_taker_test.log # Older liquidity taker test logs
+│       ├── zerodha_market_data_test.log # Older market data test logs
+│       ├── zerodha_order_book_test.log # Older order book test logs
+│       └── zerodha_order_gateway_test.log # Older order gateway test logs
 ├── scripts/                      # Build and test scripts
-├── tests/                        # Test programs
-│   ├── zerodha_auth_test.cpp      
-│   ├── zerodha_market_data_test.cpp
-│   └── zerodha_order_book_test.cpp
+│   ├── README.md                 # Scripts documentation
+│   ├── binance/                  # Binance-specific scripts
+│   │   ├── build_and_test_binance_websocket.sh # Build and test Binance WebSocket
+│   │   └── build_binance_websocket_test.sh # Build Binance WebSocket test
+│   ├── system/                   # System-wide scripts
+│   │   ├── build.sh              # Main build script
+│   │   ├── no_clean_build.sh     # Build without clean
+│   │   ├── run_clients.sh        # Run client scripts
+│   │   └── run_exchange_and_clients.sh # Run exchange and clients
+│   └── zerodha/                  # Zerodha-specific scripts
+│       ├── test_zerodha_auth.sh             # Test Zerodha auth
+│       ├── test_zerodha_liquidity_taker.sh  # Test Zerodha liquidity taker
+│       ├── test_zerodha_market_data.sh      # Test Zerodha market data
+│       ├── test_zerodha_order_book.sh       # Test Zerodha order book
+│       └── test_zerodha_order_gateway.sh    # Test Zerodha order gateway
+├── tests/                        # Test programs organized by venue
+│   ├── CMakeLists.txt            # Test build configuration
+│   ├── README.md                 # Test documentation
+│   ├── binance/                  # Binance-specific tests
+│   │   └── test_binance_trading_system.cpp  # Binance trading system test
+│   └── zerodha/                  # Zerodha-specific tests
+│       ├── zerodha_auth_test.cpp            # Zerodha auth test
+│       ├── zerodha_liquidity_taker_test.cpp # Zerodha liquidity taker test
+│       ├── zerodha_market_data_test.cpp     # Zerodha market data test
+│       ├── zerodha_order_book_test.cpp      # Zerodha order book test
+│       └── zerodha_order_gateway_test.cpp   # Zerodha order gateway test
 └── trading/                      # Trading components
     ├── adapters/                 # Exchange adapters
     │   ├── binance/              # Binance exchange adapter
     │   │   ├── market_data/      # Binance market data adapter
+    │   │   │   ├── binance_config.h          # Binance configuration
+    │   │   │   ├── binance_market_data_consumer.cpp # Market data consumer implementation
+    │   │   │   └── binance_market_data_consumer.h   # Market data consumer interface
     │   │   └── order_gw/         # Binance order gateway adapter
+    │   │       ├── binance_order_gateway.h           # Order gateway interface
+    │   │       └── binance_order_gateway_adapter.h    # Order gateway adapter
     │   └── zerodha/              # Zerodha exchange adapter
     │       ├── auth/             # Zerodha authentication
-    │       │   ├── totp.h        # TOTP implementation for 2FA
-    │       │   ├── zerodha_authenticator.cpp
-    │       │   └── zerodha_authenticator.h
+    │       │   ├── totp.h                    # TOTP implementation for 2FA
+    │       │   ├── zerodha_authenticator.cpp # Authenticator implementation
+    │       │   └── zerodha_authenticator.h   # Authenticator interface
     │       ├── market_data/      # Zerodha market data components
-    │       │   ├── environment_config.cpp
-    │       │   ├── environment_config.h
-    │       │   ├── instrument_token_manager.cpp
-    │       │   ├── instrument_token_manager.h
+    │       │   ├── environment_config.cpp    # Environment configuration implementation
+    │       │   ├── environment_config.h      # Environment configuration interface
+    │       │   ├── environment_config.md     # Environment configuration documentation
+    │       │   ├── instrument_token_manager.cpp # Token manager implementation
+    │       │   ├── instrument_token_manager.h   # Token manager interface
+    │       │   ├── instrument_token_manager.md  # Token manager documentation
     │       │   ├── orderbook/    # Zerodha order book implementation
-    │       │   │   ├── zerodha_order_book.cpp
-    │       │   │   └── zerodha_order_book.h
-    │       │   ├── zerodha_market_data_adapter.cpp
-    │       │   ├── zerodha_market_data_adapter.h
-    │       │   ├── zerodha_websocket_client.cpp
-    │       │   └── zerodha_websocket_client.h
-    │       └── order_gw/         # Zerodha order gateway components
-    │           ├── README.md     # Documentation for the order gateway
-    │           ├── zerodha_order_gateway_adapter.h
-    │           └── zerodha_order_gateway_adapter.cpp
+    │       │   │   ├── zerodha_order_book.cpp   # Order book implementation
+    │       │   │   └── zerodha_order_book.h     # Order book interface
+    │       │   ├── zerodha_market_data_adapter.cpp # Market data adapter implementation
+    │       │   ├── zerodha_market_data_adapter.h   # Market data adapter interface
+    │       │   ├── zerodha_websocket_client.cpp    # WebSocket client implementation
+    │       │   └── zerodha_websocket_client.h      # WebSocket client interface
+    │       ├── order_gw/         # Zerodha order gateway components
+    │       │   ├── zerodha_order_gateway_adapter.cpp # Order gateway adapter implementation
+    │       │   └── zerodha_order_gateway_adapter.h   # Order gateway adapter interface
+    │       └── strategy/         # Zerodha-specific strategies
+    │           ├── zerodha_liquidity_taker.cpp      # Liquidity taker implementation
+    │           └── zerodha_liquidity_taker.h        # Liquidity taker interface
     ├── market_data/              # Trading market data components
+    │   ├── market_data_consumer.cpp # Market data consumer implementation
+    │   └── market_data_consumer.h   # Market data consumer interface
     ├── order_gw/                 # Trading order gateway components
+    │   ├── order_gateway.cpp     # Order gateway implementation
+    │   └── order_gateway.h       # Order gateway interface
     ├── strategy/                 # Trading strategy implementations
+    │   ├── feature_engine.h      # Feature engine interface
+    │   ├── liquidity_taker.cpp   # Liquidity taker implementation
+    │   ├── liquidity_taker.h     # Liquidity taker interface
+    │   ├── market_maker.cpp      # Market maker implementation
+    │   ├── market_maker.h        # Market maker interface
+    │   ├── market_order.cpp      # Market order implementation
+    │   ├── market_order.h        # Market order interface
+    │   ├── market_order_book.cpp # Market order book implementation
+    │   ├── market_order_book.h   # Market order book interface
+    │   ├── om_order.h            # Order manager order definition
+    │   ├── order_manager.cpp     # Order manager implementation
+    │   ├── order_manager.h       # Order manager interface
+    │   ├── position_keeper.h     # Position keeper interface
+    │   ├── risk_manager.cpp      # Risk manager implementation
+    │   ├── risk_manager.h        # Risk manager interface
+    │   ├── trade_engine.cpp      # Trade engine implementation
+    │   └── trade_engine.h        # Trade engine interface
     └── trading_main.cpp          # Main trading program
 ```
 
@@ -411,27 +478,46 @@ The risk management system enforces consistent controls across paper and live mo
 - ✅ Order gateway adapter (fully implemented)
   - ✅ Paper trading mode (complete)
   - ✅ Live trading mode (complete)
-- ⚠️ Zerodha-specific strategies (in progress)
+- ✅ Zerodha liquidity taker strategy (implemented)
+- ✅ Test suite for all Zerodha components
 
 ### 5.3 Binance Integration
-- ⚠️ Binance authenticator (partially implemented)
-- ⚠️ Binance market data adapter (partially implemented)
-- ❌ Binance order book implementation (not started)
-- ❌ Binance order gateway adapter (not started)
-- ❌ Binance-specific strategies (not started)
+- ✅ Binance configuration (implemented)
+- ✅ Binance market data adapter (implemented)
+  - ✅ WebSocket client implementation
+  - ✅ Order book management
+  - ✅ Symbol mapping
+- ✅ Binance order gateway adapter (implemented)
+  - ✅ Order submission via REST API
+  - ✅ Order status tracking
+  - ✅ Response handling
+- ✅ Integration test for Binance trading system
+- ❌ Binance-specific strategies (not implemented)
 
 ### 5.4 Strategy Components
-- ⚠️ Feature engine extensions (partially implemented)
-- ⚠️ Liquidity taker adaptations (in progress)
-- ❌ Market maker adaptations (not started)
-- ❌ Risk management system (not started)
-- ❌ Paper trading simulation (not started)
+- ✅ Base feature engine implementation
+- ✅ Liquidity taker strategy implementation
+- ✅ Market maker strategy base implementation
+- ✅ Order manager implementation
+- ✅ Trade engine implementation
+- ✅ Market order book implementation
+- ⚠️ Risk management system (partially implemented)
+- ✅ Paper trading simulation (implemented in order gateway adapters)
 
 ### 5.5 Configuration and Deployment
 - ✅ Basic JSON configuration system
-- ❌ Mode-switching configuration (not implemented)
-- ❌ Production monitoring and alerting (not started)
-- ❌ Deployment automation (not started)
+- ✅ Mode-switching configuration for paper/live trading
+- ✅ Test scripts for all components
+- ✅ Build scripts and system organization
+- ❌ Production monitoring and alerting (not implemented)
+- ❌ Deployment automation (not implemented)
+
+### 5.6 Code Organization and Documentation
+- ✅ Organized directory structure by venues and components
+- ✅ Venue-specific test organization
+- ✅ Documentation for major components
+- ✅ Implementation plans and architecture documentation
+- ✅ Refactoring plan for unified adapter architecture
 
 ## 6. Developer Guidelines
 
@@ -699,24 +785,24 @@ The testing strategy includes:
 
 ### 9.1 Near-Term Priorities
 
-1. Complete the ZerodhaOrderGateway implementation for live trading
-2. Finish the paper trading simulation system
-3. Implement mode-switching in configuration
-4. Adapt the Liquidity Taker strategy for Zerodha
+1. Implement unified adapter architecture following the refactoring plan
+2. Complete Binance-specific strategy implementations 
+3. Enhance the risk management system with more comprehensive controls
+4. Implement comprehensive backtesting with historical data
 
 ### 9.2 Medium-Term Goals
 
-1. Complete Binance integration
-2. Implement the Market Maker strategy for both exchanges
-3. Enhance the risk management system
-4. Add comprehensive monitoring and alerting
+1. Improve market maker strategies for both exchanges
+2. Add comprehensive monitoring and alerting
+3. Implement a web-based dashboard for system monitoring
+4. Add more sophisticated order types and execution algorithms
 
 ### 9.3 Long-Term Vision
 
-1. Add support for more exchanges
-2. Implement more sophisticated strategies
-3. Build a backtesting framework with historical data
-4. Create a web-based dashboard for monitoring and control
+1. Add support for more exchanges (Coinbase, Kraken, etc.)
+2. Implement machine learning-based prediction models
+3. Build advanced backtesting frameworks with market simulation
+4. Add multi-asset, multi-venue portfolio management
 
 ## 10. Conclusion
 
