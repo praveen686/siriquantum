@@ -19,7 +19,6 @@
 #include "trading/adapters/binance/order_gw/binance_order_gateway_adapter.h"
 #include "trading/adapters/binance/market_data/binance_market_data_consumer.h"
 #include "trading/strategy/market_order_book.h"
-#include "trading/strategy/binance_market_order_book.h"
 #include "trading/strategy/trade_engine.h"
 
 /// Main components.
