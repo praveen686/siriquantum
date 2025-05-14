@@ -57,3 +57,19 @@ target_link_libraries(zerodha_order_gateway_test
     curl
     pthread
 )
+
+# Zerodha liquidity taker test
+add_executable(zerodha_liquidity_taker_test zerodha_liquidity_taker_test.cpp)
+target_link_libraries(zerodha_liquidity_taker_test 
+    PUBLIC 
+    zerodha_auth
+    zerodha_market_data
+    zerodha_order_gateway
+    zerodha_strategy
+    trading_strategy
+    libcommon
+    ${Boost_LIBRARIES}
+    ${OPENSSL_LIBRARIES}
+    curl
+    pthread
+)

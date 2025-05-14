@@ -937,3 +937,77 @@ The current implementation of the Zerodha Order Gateway Adapter includes:
    - Support for both paper and live testing modes
    
 The adapter is now ready for integration with trading strategies, with both paper trading and live trading capabilities fully operational.
+
+## 12. Critical Implementation Details and Lessons Learned
+
+### 12.1 WebSocket Connection Initialization Order
+
+During implementation of the Zerodha adapters, we encountered an important timing issue related to component initialization order. The sequence in which components are created and started has a significant impact on system stability, particularly with WebSocket connections.
+
+#### 12.1.1 Issue: Liquidity Taker Test Stalling
+
+The `zerodha_liquidity_taker_test` initially stalled during execution despite successful authentication. The test would hang after initializing the authenticator and not progress to establishing the WebSocket connection.
+
+Investigation revealed:
+1. The market data test (which worked correctly) had a simpler initialization sequence
+2. The liquidity taker test was creating multiple components including strategy objects before initializing the WebSocket connection
+3. These additional components were potentially interfering with the WebSocket connection process
+
+#### 12.1.2 Root Cause Analysis
+
+The root cause was identified as a timing issue in component initialization:
+1. In the working market data test:
+   - Create market data adapter
+   - Subscribe to symbols 
+   - Start the adapter (which initiates WebSocket connection)
+   - Wait for connection
+   - Only then proceed with further operations
+
+2. In the problematic liquidity taker test:
+   - Create market data adapter
+   - Create order gateway
+   - Create multiple other components (order book, trade engine, liquidity taker, etc.)
+   - Subscribe to symbols
+   - Start the adapter
+   - Check connection status
+
+This difference in initialization order was causing the WebSocket connection to stall.
+
+#### 12.1.3 Solution
+
+The solution involved modifying the initialization sequence in the liquidity taker test:
+
+1. Create market data adapter first
+2. Subscribe to symbols
+3. Start the adapter
+4. Wait explicitly for WebSocket connection to be established
+5. Only after confirmed connection, create and initialize other components
+6. Start order gateway and other components last
+
+This approach ensures that the WebSocket connection is established without interference from other components.
+
+#### 12.1.4 Key Implementation Guidelines
+
+Based on this experience, we've established these critical guidelines for all exchange adapter implementations:
+
+1. **Connection Establishment Priority**: WebSocket connections should be established before initializing other components
+2. **Component Initialization Order**:
+   - Market data adapter should be created first
+   - Symbol subscriptions should be configured before starting the adapter
+   - WebSocket connection should be explicitly verified before proceeding
+   - Other components (strategies, order gateways, etc.) should be initialized only after connection is confirmed
+3. **Connection Verification**: Always implement explicit verification of connection status with timeouts
+4. **Connection Handling**: Include reconnection logic with appropriate backoff for production systems
+
+These guidelines ensure robust initialization and connection handling for all exchange integrations.
+
+### 12.2 WebSocket Client Implementation
+
+The WebSocket client implementation for Zerodha uses Boost.Beast for secure WebSocket communication. Key considerations in the implementation include:
+
+1. **Heartbeat Handling**: The Zerodha WebSocket sends 1-byte heartbeat messages periodically
+2. **Reconnection Strategy**: Exponential backoff for reconnection attempts
+3. **Session Management**: Re-subscription to symbols after reconnection
+4. **Thread Safety**: Proper synchronization for WebSocket operations
+
+The WebSocket client runs in its own thread and uses a message-based architecture for market data updates, which are then converted to the internal market update format by the adapter.
