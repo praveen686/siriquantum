@@ -98,7 +98,9 @@ int main(int argc, char **argv) {
         // Setup ticker configuration
         // For this test, we'll use simple configuration for a single symbol
         TradeEngineCfgHashMap ticker_cfg;
-        ticker_cfg.at(0) = {
+        
+        // Use bracket operator [] instead of at() to ensure proper initialization of the array element
+        ticker_cfg[0] = {
             static_cast<Common::Qty>(100), // Clip size - use fixed value instead of multiplying by order_size
             0.1,                           // Reduced threshold to make market maker more aggressive
             {
@@ -107,6 +109,12 @@ int main(int argc, char **argv) {
                 -10000.0                        // Larger max loss allowance
             }
         };
+        
+        // Log the ticker configuration to verify it's correct
+        logger->log("%:% %() % Initialized ticker configuration: %\n", 
+                 __FILE__, __LINE__, __FUNCTION__, 
+                 Common::getCurrentTimeStr(&time_str),
+                 ticker_cfg[0].toString().c_str());
         
         // Create TradeEngine
         logger->log("%:% %() % Starting Trade Engine...\n", __FILE__, __LINE__, __FUNCTION__, Common::getCurrentTimeStr(&time_str));
