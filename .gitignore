@@ -39,7 +39,8 @@
 /_deps/
 
 # Logs
-/logs/*.log
+# Uncommented to include log files
+# /logs/*.log
 
 # Cache
 /.cache/
