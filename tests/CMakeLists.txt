@@ -7,6 +7,8 @@ include_directories(${PROJECT_SOURCE_DIR})
 # Find required dependencies
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(OpenSSL REQUIRED)
+find_package(nlohmann_json 3.10.0 REQUIRED)
+find_package(CURL REQUIRED)
 
 # Zerodha auth test
 add_executable(zerodha_auth_test zerodha_auth_test.cpp)
@@ -71,5 +73,27 @@ target_link_libraries(zerodha_liquidity_taker_test
     ${Boost_LIBRARIES}
     ${OPENSSL_LIBRARIES}
     curl
+    pthread
+)
+
+# Binance WebSocket test
+# Commented out due to missing source file
+# add_executable(binance_websocket_test binance_websocket_test.cpp)
+# target_link_libraries(binance_websocket_test
+
+# Binance Trading System test
+add_executable(test_binance_trading_system test_binance_trading_system.cpp)
+target_link_libraries(test_binance_trading_system
+    PUBLIC
+    binance_market_data
+    binance_order_gateway
+    trading_strategy
+    libcommon
+    libexchange
+    ${Boost_LIBRARIES}
+    ${OPENSSL_LIBRARIES}
+    nlohmann_json::nlohmann_json
+    ${CURL_LIBRARIES}
+    jsoncpp
     pthread
 )

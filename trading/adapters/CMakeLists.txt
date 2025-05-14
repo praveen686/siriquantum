@@ -10,3 +10,4 @@ target_include_directories(libadapter INTERFACE ${PROJECT_SOURCE_DIR})
 
 # Add exchange-specific adapter subdirectories
 add_subdirectory(zerodha)
+add_subdirectory(binance)

@@ -23,15 +23,15 @@
 
 namespace Trading {
 
-class BinanceOrderGatewayAdapter {
+class OrderGateway {
 public:
-    BinanceOrderGatewayAdapter(Common::ClientId client_id,
-                      Exchange::ClientRequestLFQueue *client_requests,
-                      Exchange::ClientResponseLFQueue *client_responses,
-                      const BinanceConfig& config,
-                      const std::vector<std::string>& symbols);
+    OrderGateway(Common::ClientId client_id,
+               Exchange::ClientRequestLFQueue *client_requests,
+               Exchange::ClientResponseLFQueue *client_responses,
+               const BinanceConfig& config,
+               const std::vector<std::string>& symbols);
 
-    ~BinanceOrderGatewayAdapter();
+    ~OrderGateway();
 
     // Start and stop the order gateway
     auto start() -> void;
@@ -47,42 +47,19 @@ public:
     bool checkPercentPriceFilter(const std::string& symbol, Common::Side side, double price);
 
     // Deleted default, copy & move constructors and assignment-operators
-    BinanceOrderGatewayAdapter() = delete;
-    BinanceOrderGatewayAdapter(const BinanceOrderGatewayAdapter &) = delete;
-    BinanceOrderGatewayAdapter(const BinanceOrderGatewayAdapter &&) = delete;
-    BinanceOrderGatewayAdapter &operator=(const BinanceOrderGatewayAdapter &) = delete;
-    BinanceOrderGatewayAdapter &operator=(const BinanceOrderGatewayAdapter &&) = delete;
+    OrderGateway() = delete;
+    OrderGateway(const OrderGateway &) = delete;
+    OrderGateway(const OrderGateway &&) = delete;
+    OrderGateway &operator=(const OrderGateway &) = delete;
+    OrderGateway &operator=(const OrderGateway &&) = delete;
 
 private:
-    // Struct to extend MEClientResponse with Binance-specific fields
-    struct BinanceClientResponse {
-        Exchange::MEClientResponse base_response;
-        Common::OrderId client_order_id_ = Common::OrderId_INVALID;
-        Common::OrderId market_order_id_ = Common::OrderId_INVALID;
-        size_t seq_num_ = 0;
-
-        BinanceClientResponse() = default;
-
-        // Convert from standard response
-        BinanceClientResponse(const Exchange::MEClientResponse& response) 
-            : base_response(response), 
-              client_order_id_(response.order_id_), 
-              seq_num_(0) {}
-        
-        // Convert to standard response
-        Exchange::MEClientResponse toMEClientResponse() const {
-            Exchange::MEClientResponse response = base_response;
-            response.order_id_ = client_order_id_;
-            return response;
-        }
-    };
-
     const Common::ClientId client_id_;
     BinanceConfig config_;
 
     // Lock free queues for client requests and responses
-    Exchange::ClientRequestLFQueue *incoming_requests_ = nullptr; // These are requests FROM TradeEngine
-    Exchange::ClientResponseLFQueue *outgoing_responses_ = nullptr; // These are responses TO TradeEngine
+    Exchange::ClientRequestLFQueue *incoming_requests_ = nullptr; // Renamed from outgoing_requests_ for clarity - these are requests FROM TradeEngine
+    Exchange::ClientResponseLFQueue *outgoing_responses_ = nullptr; // Renamed from incoming_responses_ for clarity - these are responses TO TradeEngine
 
     // API interaction
     CURL *curl_ = nullptr;
