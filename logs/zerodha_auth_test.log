@@ -1,0 +1,13 @@
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:97 EnvironmentConfig() Wed May 14 12:54:38 2025 Initializing EnvironmentConfig with env file: , config file: /home/praveen/om/siriquantum/ida/config/trading.json
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:332 loadFromJson() Wed May 14 12:54:38 2025 Loaded JSON configuration with 4 sections
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 12:54:38 2025 - Found config section: exchanges
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 12:54:38 2025 - Found config section: instruments
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 12:54:38 2025 - Found config section: risk
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:338 loadFromJson() Wed May 14 12:54:38 2025 - Found config section: trading_system
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:149 load() Wed May 14 12:54:38 2025 Successfully loaded configuration from JSON file: /home/praveen/om/siriquantum/ida/config/trading.json
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:302 load() Wed May 14 12:54:38 2025 Loaded configuration: 4 instruments, 0 symbol mappings, 3 index futures
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/market_data/environment_config.cpp:307 load() Wed May 14 12:54:38 2025 Trading mode: PAPER
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/auth/zerodha_authenticator.cpp:95 from_config() Wed May 14 12:54:38 2025 Creating ZerodhaAuthenticator from EnvironmentConfig
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/auth/zerodha_authenticator.cpp:74 ZerodhaAuthenticator() Wed May 14 12:54:38 2025 Pure C++ Authenticator: Token will be stored at: /home/praveen/om/siriquantum/ida/build/tests/.cache/token_NQ8574.json
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/auth/zerodha_authenticator.cpp:488 load_session() Wed May 14 12:54:38 2025 Loaded existing session from cache
+/home/praveen/om/siriquantum/ida/trading/adapters/zerodha/auth/zerodha_authenticator.cpp:128 authenticate() Wed May 14 12:54:38 2025 Using cached session
