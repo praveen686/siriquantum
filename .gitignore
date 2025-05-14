@@ -1,0 +1,73 @@
+# Build directories
+/build/
+/bin/
+/lib/
+/install/
+/CMakeFiles/
+/CMakeCache.txt
+/cmake_install.cmake
+/Makefile
+
+# IDE files
+/.idea/
+/.vscode/
+/.vs/
+*.swp
+*.swo
+*~
+
+# Compiled object files
+*.o
+*.obj
+*.so
+*.a
+*.dylib
+*.lib
+*.dll
+
+# Executables
+*.exe
+*.out
+*.app
+
+# CMake generated files
+/CMakeLists.txt.user
+/CMakeScripts/
+/Testing/
+/DartConfiguration.tcl
+/CTestTestfile.cmake
+/_deps/
+
+# Logs
+/logs/*.log
+
+# Cache
+/.cache/
+/cache/
+
+# Environment files
+.env
+*.env.local
+*.env.development
+*.env.test
+*.env.production
+
+# Temporary files
+.DS_Store
+*.tmp
+*.temp
+/temp/
+/tmp/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C++ specific
+compile_commands.json
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
