@@ -23,7 +23,7 @@ namespace Trading {
       trade_engine_ = trade_engine;
     }
 
-    /// Update the BBO abstraction, the two boolean parameters represent if the buy or the sekk (or both) sides or both need to be updated.
+    /// Update the BBO abstraction, the two boolean parameters represent if the buy or the sell (or both) sides or both need to be updated.
     auto updateBBO(bool update_bid, bool update_ask) noexcept {
       if(update_bid) {
         if(bids_by_price_) {

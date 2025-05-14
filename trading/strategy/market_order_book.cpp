@@ -18,8 +18,42 @@ namespace Trading {
 
   /// Process market data update and update the limit order book.
   auto MarketOrderBook::onMarketUpdate(const Exchange::MEMarketUpdate *market_update) noexcept -> void {
-    const auto bid_updated = (bids_by_price_ && market_update->side_ == Side::BUY && market_update->price_ >= bids_by_price_->price_);
-    const auto ask_updated = (asks_by_price_ && market_update->side_ == Side::SELL && market_update->price_ <= asks_by_price_->price_);
+    if (!market_update) {
+      logger_->log("%:% %() % ERROR: Null market update\n", __FILE__, __LINE__, __FUNCTION__,
+                 Common::getCurrentTimeStr(&time_str_));
+      return;
+    }
+    
+    // Initialize flags for BBO updates
+    bool bid_updated = false;
+    bool ask_updated = false;
+    
+    // Process different types of market updates and determine if they affect the BBO
+    if (market_update->type_ == Exchange::MarketUpdateType::ADD ||
+        market_update->type_ == Exchange::MarketUpdateType::MODIFY) {
+        
+      if (market_update->side_ == Side::BUY) {
+        // For buy side: update BBO if the price is better than or equal to the current best bid
+        // or if there's no existing best bid
+        bid_updated = !bids_by_price_ || (market_update->price_ >= bids_by_price_->price_);
+      } else if (market_update->side_ == Side::SELL) {
+        // For sell side: update BBO if the price is better than or equal to the current best ask
+        // or if there's no existing best ask
+        ask_updated = !asks_by_price_ || (market_update->price_ <= asks_by_price_->price_);
+      }
+    } else if (market_update->type_ == Exchange::MarketUpdateType::CANCEL) {
+      if (market_update->side_ == Side::BUY && bids_by_price_) {
+        // For canceling a buy order: update BBO if we're removing the best bid
+        bid_updated = (market_update->price_ == bids_by_price_->price_);
+      } else if (market_update->side_ == Side::SELL && asks_by_price_) {
+        // For canceling a sell order: update BBO if we're removing the best ask
+        ask_updated = (market_update->price_ == asks_by_price_->price_);
+      }
+    } else if (market_update->type_ == Exchange::MarketUpdateType::CLEAR) {
+      // Full book clear impacts both sides of the book
+      bid_updated = true;
+      ask_updated = true;
+    }
 
     switch (market_update->type_) {
       case Exchange::MarketUpdateType::ADD: {
