@@ -10,8 +10,12 @@ find_package(OpenSSL REQUIRED)
 find_package(nlohmann_json 3.10.0 REQUIRED)
 find_package(CURL REQUIRED)
 
+# ==============================
+# Zerodha Tests
+# ==============================
+
 # Zerodha auth test
-add_executable(zerodha_auth_test zerodha_auth_test.cpp)
+add_executable(zerodha_auth_test zerodha/zerodha_auth_test.cpp)
 target_link_libraries(zerodha_auth_test 
     PUBLIC 
     zerodha_auth
@@ -23,7 +27,7 @@ target_link_libraries(zerodha_auth_test
 )
 
 # Zerodha market data test
-add_executable(zerodha_market_data_test zerodha_market_data_test.cpp)
+add_executable(zerodha_market_data_test zerodha/zerodha_market_data_test.cpp)
 target_link_libraries(zerodha_market_data_test 
     PUBLIC 
     zerodha_auth
@@ -35,7 +39,7 @@ target_link_libraries(zerodha_market_data_test
 )
 
 # Zerodha order book test
-add_executable(zerodha_order_book_test zerodha_order_book_test.cpp)
+add_executable(zerodha_order_book_test zerodha/zerodha_order_book_test.cpp)
 target_link_libraries(zerodha_order_book_test 
     PUBLIC 
     zerodha_auth
@@ -47,7 +51,7 @@ target_link_libraries(zerodha_order_book_test
 )
 
 # Zerodha order gateway test
-add_executable(zerodha_order_gateway_test zerodha_order_gateway_test.cpp)
+add_executable(zerodha_order_gateway_test zerodha/zerodha_order_gateway_test.cpp)
 target_link_libraries(zerodha_order_gateway_test 
     PUBLIC 
     zerodha_auth
@@ -61,7 +65,7 @@ target_link_libraries(zerodha_order_gateway_test
 )
 
 # Zerodha liquidity taker test
-add_executable(zerodha_liquidity_taker_test zerodha_liquidity_taker_test.cpp)
+add_executable(zerodha_liquidity_taker_test zerodha/zerodha_liquidity_taker_test.cpp)
 target_link_libraries(zerodha_liquidity_taker_test 
     PUBLIC 
     zerodha_auth
@@ -76,13 +80,12 @@ target_link_libraries(zerodha_liquidity_taker_test
     pthread
 )
 
-# Binance WebSocket test
-# Commented out due to missing source file
-# add_executable(binance_websocket_test binance_websocket_test.cpp)
-# target_link_libraries(binance_websocket_test
+# ==============================
+# Binance Tests
+# ==============================
 
 # Binance Trading System test
-add_executable(test_binance_trading_system test_binance_trading_system.cpp)
+add_executable(test_binance_trading_system binance/test_binance_trading_system.cpp)
 target_link_libraries(test_binance_trading_system
     PUBLIC
     binance_market_data
@@ -97,3 +100,14 @@ target_link_libraries(test_binance_trading_system
     jsoncpp
     pthread
 )
+
+# Binance WebSocket test (uncomment when implemented)
+# add_executable(binance_websocket_test binance/binance_websocket_test.cpp)
+# target_link_libraries(binance_websocket_test
+#     PUBLIC
+#     binance_market_data
+#     libcommon
+#     ${Boost_LIBRARIES}
+#     ${OPENSSL_LIBRARIES}
+#     pthread
+# )

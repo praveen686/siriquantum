@@ -1,15 +1,18 @@
 # Tests
 
-This directory contains test programs for the IDA Trading System components.
+This directory contains test programs for the IDA Trading System components, organized by venue.
 
-## Test Files
+## Directory Structure
 
-- `zerodha_auth_test.cpp` - Tests the Zerodha authentication functionality
-- `zerodha_market_data_test.cpp` - Tests the Zerodha market data adapter
-- `zerodha_order_book_test.cpp` - Tests the Zerodha limit order book implementation
-- `zerodha_order_gateway_test.cpp` - Tests the Zerodha order gateway functionality
-- `zerodha_liquidity_taker_test.cpp` - Tests the Zerodha liquidity taker strategy
-- `test_binance_trading_system.cpp` - Tests the complete Binance trading system integration
+- `zerodha/` - Tests for Zerodha venue adapter components
+  - `zerodha_auth_test.cpp` - Tests the Zerodha authentication functionality
+  - `zerodha_market_data_test.cpp` - Tests the Zerodha market data adapter
+  - `zerodha_order_book_test.cpp` - Tests the Zerodha limit order book implementation
+  - `zerodha_order_gateway_test.cpp` - Tests the Zerodha order gateway functionality
+  - `zerodha_liquidity_taker_test.cpp` - Tests the Zerodha liquidity taker strategy
+
+- `binance/` - Tests for Binance venue adapter components
+  - `test_binance_trading_system.cpp` - Tests the complete Binance trading system integration
 
 ## Running Tests
 
