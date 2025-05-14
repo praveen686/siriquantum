@@ -42,6 +42,9 @@
 # Uncommented to include log files
 # /logs/*.log
 
+# Config files with real credentials
+/config/trading.json
+
 # Cache
 /.cache/
 /cache/
